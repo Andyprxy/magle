@@ -17,21 +17,22 @@
             background: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.9)), url('form-bg.jpg') center/cover no-repeat;
         }
 
-        /* Light Theme Button */
-        .btn-outline {
+        /* Solid Theme Button */
+        .btn-solid {
             display: inline-block;
-            border: 1px solid #111111;
-            padding: 12px 24px;
+            background-color: #111111;
+            padding: 14px 28px;
             font-size: 13px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #111111;
-            transition: all 0.3s ease;
-        }
-        .btn-outline:hover {
-            background-color: #111111;
             color: #ffffff;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .btn-solid:hover {
+            background-color: #333333;
+            transform: translateY(-1px);
         }
         
         /* Custom file input styling */
@@ -85,8 +86,8 @@
                 <p class="text-lg text-gray-600 font-light leading-relaxed mb-8">
                     Magle supports residential projects where bespoke eco screens, custom gates, and structural steel elements need to align with architecture from the start. We stay involved early so design intent carries through fabrication and installation without compromise.
                 </p>
-                <!-- Linked to Residential Folder -->
-                <a href="residential/index.html" class="btn-outline">Explore Residential Work</a>
+                <!-- Linked to Residential Folder with Solid Button -->
+                <a href="residential/index.html" class="btn-solid">Explore Residential Work</a>
             </div>
             <div class="order-1 lg:order-2 flex justify-center">
                 <img src="residential-work.jpg" alt="Residential Metalwork" class="w-full max-w-[600px] h-[450px] object-cover rounded-sm shadow-md">
@@ -110,43 +111,43 @@
                 <p class="text-lg text-gray-600 font-light leading-relaxed mb-8">
                     Magle works directly with project teams to fabricate architectural metalwork—from heavy-duty sliding gates to illuminated signage—that fits into complex builds and performs in demanding environments.
                 </p>
-                <!-- Linked to Commercial Folder -->
-                <a href="commercial/index.html" class="btn-outline">Explore Commercial Work</a>
+                <!-- Linked to Commercial Folder with Solid Button -->
+                <a href="commercial/index.html" class="btn-solid">Explore Commercial Work</a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Projects Gallery -->
+    <!-- Featured Projects Gallery (Restored Original Images) -->
     <section id="projects" class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
         <h2 class="text-3xl font-light text-gray-900">Featured Projects</h2>
         <hr class="border-t border-gray-300 mt-6 mb-16">
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <!-- Project 1: Commercial Facade -->
+            <!-- Project 1 -->
             <div class="group cursor-pointer">
                 <div class="overflow-hidden h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
-                    <img src="commercial/commercial-hero.webp" alt="Commercial Facade Screen" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <img src="project-1.jpg" alt="Project 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
                 <p class="text-gray-700 font-light text-[15px] leading-relaxed">
-                    “Large-Scale Continuous Exterior Facade Screen For Commercial Client”
+                    “Custom Illuminated Steel Signage For Retail Storefront”
                 </p>
             </div>
-            <!-- Project 2: Residential Architecture -->
+            <!-- Project 2 -->
             <div class="group cursor-pointer">
                 <div class="overflow-hidden h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
-                    <img src="residential/herro.webp" alt="Residential Architecture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <img src="project-2.jpg" alt="Project 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
                 <p class="text-gray-700 font-light text-[15px] leading-relaxed">
-                    “Illuminated Exterior Signage & Automated Gate Installation”
+                    “Step Inside an Architectural Sliding Gate Installation Transformed by Magle”
                 </p>
             </div>
-            <!-- Project 3: Corporate Branding -->
+            <!-- Project 3 -->
             <div class="group cursor-pointer">
                 <div class="overflow-hidden h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
-                    <img src="commercial/corporate-signage.webp" alt="Corporate Signage" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <img src="project-3.jpg" alt="Project 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
                 <p class="text-gray-700 font-light text-[15px] leading-relaxed">
-                    “Precision 3D Corporate Wall Signage For Reception Area”
+                    “Precision Laser Cut Eco Screens for Modern Entertaining Spaces”
                 </p>
             </div>
         </div>
@@ -193,7 +194,7 @@
                     </div>
                     
                     <div class="pt-6">
-                        <button type="submit" class="bg-[#313834] text-white hover:bg-black transition-colors px-8 py-4 text-sm font-bold uppercase tracking-widest rounded-md">
+                        <button type="submit" class="btn-solid w-auto border-none">
                             Request A Project Estimate
                         </button>
                     </div>
@@ -202,7 +203,7 @@
         </div>
     </section>
 
-    <!-- Expanded Footer (Restored Dark Shade) -->
+    <!-- Expanded Footer -->
     <footer class="bg-[#0a0a0a] border-t border-gray-900 py-20 px-6 lg:px-[10%]">
         <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-[14px] text-gray-400">
             

@@ -2,27 +2,34 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Viewport locked to prevent auto-zoom on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Commercial Metalwork | Magle Signs & Fabrications</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Roboto', sans-serif; background-color: #ffffff; color: #333333; overflow-x: hidden; }
         
-        .btn-outline {
+        /* Solid Theme Button */
+        .btn-solid {
             display: inline-block;
-            border: 1px solid #111111;
-            padding: 12px 24px;
+            background-color: #111111;
+            padding: 14px 28px;
             font-size: 13px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #111111;
+            color: #ffffff;
             transition: all 0.3s ease;
-            cursor: pointer;
+            border-radius: 2px;
+            text-align: center;
         }
-        .btn-outline:hover { background-color: #111111; color: #ffffff; }
+        .btn-solid:hover {
+            background-color: #333333;
+            transform: translateY(-1px);
+        }
 
+        /* Slide-out Panel Transitions */
         .slide-over-panel {
             transform: translateX(100%);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -33,183 +40,236 @@
             transition: opacity 0.4s ease;
         }
         .slide-over-overlay.open { opacity: 1; pointer-events: auto; }
+
+        /* Custom file input styling */
+        input[type="file"]::file-selector-button {
+            background: transparent; border: 1px solid #ccc; padding: 10px 20px;
+            color: #333; cursor: pointer; text-transform: uppercase; font-size: 12px; font-weight: 500;
+            transition: background 0.3s;
+        }
+        input[type="file"]::file-selector-button:hover { background: rgba(0,0,0,0.05); }
+
+        /* Mobile Menu Transition */
+        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
+
+        /* Mobile Overrides */
+        @media (max-width: 768px) {
+            .btn-solid {
+                padding: 8px 12px;
+                font-size: 9px;
+                letter-spacing: 0.5px;
+                width: 100%;
+            }
+            input[type="file"]::file-selector-button {
+                padding: 6px 12px;
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Navigation (Points back to root folder with ../) -->
+    <!-- Navigation (Slimmer on Mobile, Preserved on PC) -->
     <nav class="fixed w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
-        <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../index.html">
-                <img src="../logo-white.png" alt="Magle Logo" class="h-10 object-contain">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
+            <!-- Logo pointing up to root -->
+            <a href="../" class="flex items-center">
+                <img src="../logo-white.png" alt="Magle Logo" class="h-10 md:h-11 object-contain">
             </a>
+
+            <!-- Desktop Links -->
             <div class="hidden lg:flex space-x-8 text-[13px] font-medium tracking-[0.1em] text-gray-300">
-                <a href="../residential/index.html" class="hover:text-white transition-colors">RESIDENTIAL</a>
-                <a href="index.html" class="text-white transition-colors">COMMERCIAL</a>
-                <a href="../index.html#projects" class="hover:text-white transition-colors">PROJECTS</a>
-                <a href="../index.html#contact" class="hover:text-white transition-colors">CONTACT</a>
+                <a href="../residential/" class="hover:text-white transition-colors">RESIDENTIAL</a>
+                <a href="#" class="text-white transition-colors">COMMERCIAL</a>
+                <a href="../#projects" class="hover:text-white transition-colors">PROJECTS</a>
+                <a href="../#contact" class="hover:text-white transition-colors">CONTACT</a>
             </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menu-icon" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-5 py-5 text-[11px] font-medium tracking-[0.1em] text-gray-300">
+            <a href="../residential/" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">RESIDENTIAL</a>
+            <a href="#" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">COMMERCIAL</a>
+            <a href="../#projects" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">PROJECTS</a>
+            <a href="../#contact" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">CONTACT</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="pt-40 pb-20 px-6 lg:px-[10%] bg-[#fafafa]">
-        <div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <p class="text-[12px] font-bold tracking-[0.2em] text-gray-500 mb-4 uppercase">B2B Manufacturing & Fabrication</p>
-                <h1 class="text-5xl md:text-6xl font-light tracking-tight text-gray-900 mb-6 leading-tight">
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+    </script>
+
+    <!-- Hero Section (Locked 2-Column Grid on Mobile) -->
+    <header class="min-h-[70svh] md:min-h-[85svh] bg-[#fafafa] flex items-center px-4 md:px-6 lg:px-[10%] pt-20 md:pt-0">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 gap-4 md:gap-12 items-center w-full">
+            <div class="order-1 text-left md:pt-24 lg:pt-32">
+                <p class="text-[8px] md:text-[12px] font-bold tracking-[0.2em] text-gray-500 mb-2 md:mb-4 uppercase">B2B Manufacturing & Fabrication</p>
+                <h1 class="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-gray-900 mb-2 md:mb-6 leading-tight">
                     The Commercial <br>Division
                 </h1>
-                <p class="text-lg text-gray-600 font-light leading-relaxed max-w-xl mb-8">
+                <p class="text-[9px] sm:text-[11px] md:text-lg text-gray-600 font-light leading-relaxed max-w-xl md:mb-8">
                     Engineered for scale, durability, and architectural impact. We partner with developers, contractors, and retail brands to deliver precision metalwork that fits complex builds and performs in high-traffic environments.
                 </p>
             </div>
-            <!-- Widescreen Commercial Hero Image Container -->
-            <div class="h-[400px] lg:h-[550px] w-full overflow-hidden rounded-md shadow-2xl">
-                <img src="commercial-hero.webp" alt="Commercial Building Facade Wrap" class="w-full h-full object-cover">
+            <div class="order-2 flex justify-center items-center w-full">
+                <!-- Local Image -->
+                <img src="commercial-hero.webp" alt="Commercial Building Facade Wrap" class="w-full h-[150px] sm:h-[200px] md:h-auto max-w-[500px] object-cover md:object-contain rounded-sm shadow-md">
             </div>
         </div>
     </header>
 
-    <!-- Bespoke Services (Large Scale Projects) -->
-    <section class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
-        <h2 class="text-3xl font-light text-gray-900">Large-Scale Architectural Integration</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-16">
+    <!-- Bespoke Services (Text Left/Right alternated with Image) -->
+    <section class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
+        <h2 class="text-xl md:text-3xl font-light text-gray-900">Large-Scale Architectural Integration</h2>
+        <hr class="border-t border-gray-300 mt-4 md:mt-6 mb-8 md:mb-16">
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-            <div class="order-2 lg:order-1 flex justify-center">
-                <img src="building-mural.webp" alt="Multi-story Building Facade Screen" class="w-full max-w-[500px] object-contain rounded-sm shadow-md">
+        <div class="grid grid-cols-2 gap-4 md:gap-16 items-center mb-12 md:mb-24">
+            <!-- Image Left on Mobile & PC -->
+            <div class="order-1 flex justify-center">
+                <img src="building-mural.webp" alt="Multi-story Building Facade Screen" class="w-full h-[150px] md:h-[450px] object-cover md:object-contain rounded-sm shadow-md">
             </div>
-            <div class="order-1 lg:order-2">
-                <h3 class="text-2xl font-light text-gray-900 mb-4">Building Facades & Exterior Murals</h3>
-                <p class="text-lg text-gray-600 font-light leading-relaxed mb-6">
+            <div class="order-2">
+                <h3 class="text-sm md:text-2xl font-light text-gray-900 mb-2 md:mb-4">Building Facades & Exterior Murals</h3>
+                <p class="text-[10px] md:text-lg text-gray-600 font-light leading-relaxed mb-3 md:mb-6">
                     Transform commercial exteriors with multi-story, laser-cut metal screens. We manufacture and supply large-scale cladding that provides solar shading, structural privacy, and striking visual identity for corporate and retail buildings.
                 </p>
-                <a href="../index.html#contact" class="btn-outline">Consult With An Engineer</a>
+                <a href="../#contact" class="btn-solid w-full md:w-auto">Consult With An Engineer</a>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <h3 class="text-2xl font-light text-gray-900 mb-4">Commercial Staircase Balustrades</h3>
-                <p class="text-lg text-gray-600 font-light leading-relaxed mb-6">
+        <div class="grid grid-cols-2 gap-4 md:gap-16 items-center">
+            <div class="order-1">
+                <h3 class="text-sm md:text-2xl font-light text-gray-900 mb-2 md:mb-4">Commercial Staircase Balustrades</h3>
+                <p class="text-[10px] md:text-lg text-gray-600 font-light leading-relaxed mb-3 md:mb-6">
                     Replace traditional drywall or glass balustrades with highly durable, architecturally integrated metal enclosures. Designed to meet commercial safety compliance while establishing a premium interior aesthetic for offices and hospitality venues.
                 </p>
-                <a href="../index.html#contact" class="btn-outline">Request Fit-Out Consultation</a>
+                <a href="../#contact" class="btn-solid w-full md:w-auto">Request Fit-Out Consultation</a>
             </div>
-            <div class="flex justify-center">
-                <img src="staircase-balustrade.webp" alt="Commercial Staircase Balustrade" class="w-full max-w-[500px] object-contain rounded-sm shadow-md">
+            <div class="order-2 flex justify-center">
+                <img src="staircase-balustrade.webp" alt="Commercial Staircase Balustrade" class="w-full h-[150px] md:h-[450px] object-cover md:object-contain rounded-sm shadow-md">
             </div>
         </div>
     </section>
 
-    <!-- The Digital Storefront (B2B Products) -->
-    <section class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
-        <div class="flex justify-between items-end mb-6">
-            <h2 class="text-3xl font-light text-gray-900">Standard Commercial Elements</h2>
-            <div class="hidden md:flex space-x-4 text-sm font-light text-gray-500">
+    <!-- The Digital Storefront (2 Columns on Mobile, 3 on PC) -->
+    <section class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
+        <div class="flex justify-between items-end mb-4 md:mb-6">
+            <h2 class="text-xl md:text-3xl font-light text-gray-900">Standard Elements</h2>
+            <div class="hidden md:flex space-x-4 text-[9px] md:text-sm font-light text-gray-500">
                 <button class="hover:text-black border-b border-black text-black pb-1">All Items</button>
                 <button class="hover:text-black pb-1">Signage</button>
                 <button class="hover:text-black pb-1">Partitions & Security</button>
             </div>
         </div>
-        <hr class="border-t border-gray-300 mb-12">
+        <hr class="border-t border-gray-300 mb-8 md:mb-12">
         
-        <!-- 6-Item Commercial Product Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <!-- Grid starts at 2 cols on mobile, 3 on LG -->
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10">
             
-            <div class="group">
-                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+            <div class="group flex flex-col justify-between">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="corporate-signage.webp" alt="3D Corporate Signage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
-                <div class="flex justify-between items-start">
-                    <div class="pr-4">
-                        <h4 class="text-lg font-medium text-gray-900">3D Corporate Signage</h4>
-                        <p class="text-gray-500 font-light text-sm mt-1">Standoff-mounted dimensional metal lettering.</p>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">3D Corporate Signage</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Standoff-mounted dimensional metal lettering.</p>
                     </div>
-                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">Price on Request</p>
+                    <p class="text-[9px] md:text-lg font-light text-gray-900 whitespace-nowrap">Price Request</p>
                 </div>
-                <button onclick="openPanel('3D Corporate Signage', 'Custom Quoted', 'corporate-signage.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                <button onclick="openPanel('3D Corporate Signage', 'Custom Quoted', 'corporate-signage.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs border-none whitespace-nowrap">
                     Configure & Quote
                 </button>
             </div>
 
-            <div class="group">
-                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+            <div class="group flex flex-col justify-between">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="branded-partition.webp" alt="Branded Retail Partition" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
-                <div class="flex justify-between items-start">
-                    <div class="pr-4">
-                        <h4 class="text-lg font-medium text-gray-900">Branded Retail Partitions</h4>
-                        <p class="text-gray-500 font-light text-sm mt-1">Interior room dividers with integrated vector logos.</p>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Branded Retail Partitions</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Interior room dividers with integrated vector logos.</p>
                     </div>
-                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 4,200 / sq.m</p>
+                    <p class="text-[9px] md:text-lg font-light text-gray-900 whitespace-nowrap">R 4,200 / sq.m</p>
                 </div>
-                <button onclick="openPanel('Branded Retail Partitions', 'R 4,200 / sq.m', 'branded-partition.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                <button onclick="openPanel('Branded Retail Partitions', 'R 4,200 / sq.m', 'branded-partition.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs border-none whitespace-nowrap">
                     Configure & Quote
                 </button>
             </div>
 
-            <div class="group">
-                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+            <div class="group flex flex-col justify-between">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="security-panels.webp" alt="Industrial Security Panels" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
-                <div class="flex justify-between items-start">
-                    <div class="pr-4">
-                        <h4 class="text-lg font-medium text-gray-900">Industrial Security Panels</h4>
-                        <p class="text-gray-500 font-light text-sm mt-1">Heavy-duty window screens for commercial ground floors.</p>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Security Panels</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Heavy-duty window screens for commercial floors.</p>
                     </div>
-                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 3,800 / sq.m</p>
+                    <p class="text-[9px] md:text-lg font-light text-gray-900 whitespace-nowrap">R 3,800 / sq.m</p>
                 </div>
-                <button onclick="openPanel('Industrial Security Panels', 'R 3,800 / sq.m', 'security-panels.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                <button onclick="openPanel('Industrial Security Panels', 'R 3,800 / sq.m', 'security-panels.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs border-none whitespace-nowrap">
                     Configure & Quote
                 </button>
             </div>
 
-            <div class="group">
-                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+            <div class="group flex flex-col justify-between">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="rust-partition.webp" alt="Corten Steel Partition" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
-                <div class="flex justify-between items-start">
-                    <div class="pr-4">
-                        <h4 class="text-lg font-medium text-gray-900">Corten Steel Partitions</h4>
-                        <p class="text-gray-500 font-light text-sm mt-1">Floor-to-ceiling screens in an architectural rust finish.</p>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Corten Steel Partitions</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Floor-to-ceiling screens in architectural rust finish.</p>
                     </div>
-                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 5,100 / sq.m</p>
+                    <p class="text-[9px] md:text-lg font-light text-gray-900 whitespace-nowrap">R 5,100 / sq.m</p>
                 </div>
-                <button onclick="openPanel('Corten Steel Partitions', 'R 5,100 / sq.m', 'rust-partition.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                <button onclick="openPanel('Corten Steel Partitions', 'R 5,100 / sq.m', 'rust-partition.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs border-none whitespace-nowrap">
                     Configure & Quote
                 </button>
             </div>
 
-            <div class="group">
-                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+            <div class="group flex flex-col justify-between">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="industrial-screens.webp" alt="Event Space Partitions" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
-                <div class="flex justify-between items-start">
-                    <div class="pr-4">
-                        <h4 class="text-lg font-medium text-gray-900">Event Space Partitions</h4>
-                        <p class="text-gray-500 font-light text-sm mt-1">Tall, folding decorative screens for hospitality venues.</p>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Event Space Partitions</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Tall, folding decorative screens for hospitality venues.</p>
                     </div>
-                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 4,800 / panel</p>
+                    <p class="text-[9px] md:text-lg font-light text-gray-900 whitespace-nowrap">R 4,800 / panel</p>
                 </div>
-                <button onclick="openPanel('Event Space Partitions', 'R 4,800 / panel', 'industrial-screens.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                <button onclick="openPanel('Event Space Partitions', 'R 4,800 / panel', 'industrial-screens.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs border-none whitespace-nowrap">
                     Configure & Quote
                 </button>
             </div>
 
-            <div class="group">
-                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+            <div class="group flex flex-col justify-between">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="corten-wall-art.webp" alt="Decorative Corten Wall Art" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
-                <div class="flex justify-between items-start">
-                    <div class="pr-4">
-                        <h4 class="text-lg font-medium text-gray-900">Corporate Wall Installations</h4>
-                        <p class="text-gray-500 font-light text-sm mt-1">Multi-panel decorative steel art for exterior focal points.</p>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Corporate Wall Installations</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Multi-panel decorative steel art for exterior focal points.</p>
                     </div>
-                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 14,500 / set</p>
+                    <p class="text-[9px] md:text-lg font-light text-gray-900 whitespace-nowrap">R 14,500 / set</p>
                 </div>
-                <button onclick="openPanel('Corporate Wall Installations', 'R 14,500 / set', 'corten-wall-art.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                <button onclick="openPanel('Corporate Wall Installations', 'R 14,500 / set', 'corten-wall-art.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs border-none whitespace-nowrap">
                     Configure & Quote
                 </button>
             </div>
@@ -217,14 +277,14 @@
         </div>
 
         <!-- Custom Commercial Tender Section -->
-        <div class="mt-16 bg-white border border-gray-200 p-10 md:p-14 flex flex-col md:flex-row justify-between items-center rounded-sm shadow-sm">
-            <div class="mb-6 md:mb-0 md:mr-8 max-w-3xl">
-                <h3 class="text-2xl font-light text-gray-900 mb-3">Submit Architectural Drawings</h3>
-                <p class="text-gray-600 font-light leading-relaxed">
+        <div class="mt-12 md:mt-16 bg-white border border-gray-200 p-6 md:p-14 flex flex-col md:flex-row justify-between items-center rounded-sm shadow-sm">
+            <div class="mb-4 md:mb-0 md:mr-8 max-w-3xl text-center md:text-left">
+                <h3 class="text-sm md:text-2xl font-light text-gray-900 mb-2 md:mb-3">Submit Architectural Drawings</h3>
+                <p class="text-[9px] md:text-base text-gray-600 font-light leading-relaxed">
                     Working on a large-scale development or commercial fit-out? We handle high-volume laser cutting and heavy fabrication. Upload your CAD, DXF, or Tender documents, and our engineering team will provide a comprehensive project quote.
                 </p>
             </div>
-            <button onclick="openPanel('Commercial Tender / CAD Upload', 'Quote Pending Review', 'commercial-hero.webp')" class="bg-[#313834] text-white py-4 px-10 text-sm font-bold uppercase tracking-widest hover:bg-black transition-colors whitespace-nowrap rounded-sm shadow-md">
+            <button onclick="openPanel('Commercial Tender / CAD Upload', 'Quote Pending Review', 'commercial-hero.webp')" class="btn-solid w-full md:w-auto border-none shadow-md">
                 Upload Project Files
             </button>
         </div>
@@ -235,59 +295,59 @@
     <div id="slideOverOverlay" class="fixed inset-0 bg-black/60 z-50 slide-over-overlay" onclick="closePanel()"></div>
     
     <div id="slideOverPanel" class="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl slide-over-panel overflow-y-auto flex flex-col">
-        <div class="flex justify-between items-center p-6 border-b border-gray-200">
-            <h2 class="text-xl font-light text-gray-900">Project Configuration</h2>
+        <div class="flex justify-between items-center p-4 md:p-6 border-b border-gray-200">
+            <h2 class="text-lg md:text-xl font-light text-gray-900">Project Configuration</h2>
             <button onclick="closePanel()" class="text-gray-400 hover:text-black transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         
-        <div class="p-6 flex-grow">
-            <img id="panelImage" src="" alt="Product" class="w-full h-64 object-contain rounded-sm mb-6 bg-gray-100 p-2 border border-gray-200">
+        <div class="p-4 md:p-6 flex-grow">
+            <img id="panelImage" src="" alt="Product" class="w-full h-40 md:h-64 object-contain rounded-sm mb-4 md:mb-6 bg-gray-100 p-2 border border-gray-200">
             
-            <h3 id="panelTitle" class="text-2xl font-medium text-gray-900 mb-1">Product Name</h3>
-            <p id="panelPrice" class="text-xl font-light text-gray-600 mb-8 border-b border-gray-200 pb-6">R 0.00</p>
+            <h3 id="panelTitle" class="text-lg md:text-2xl font-medium text-gray-900 mb-1">Product Name</h3>
+            <p id="panelPrice" class="text-sm md:text-xl font-light text-gray-600 mb-6 md:mb-8 border-b border-gray-200 pb-4 md:pb-6">R 0.00</p>
             
-            <form class="space-y-6">
+            <form class="space-y-4 md:space-y-6">
                 <div>
-                    <label class="block text-[13px] tracking-wide text-gray-900 font-bold mb-3 uppercase">Commercial Finish</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label class="border border-gray-300 p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
+                    <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Commercial Finish</label>
+                    <div class="grid grid-cols-2 gap-2 md:gap-3">
+                        <label class="border border-gray-300 p-2 md:p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
                             <input type="radio" name="finish" class="hidden" checked>
-                            <span class="text-sm font-light text-gray-700">Powder Coated</span>
+                            <span class="text-[10px] md:text-sm font-light text-gray-700">Powder Coated</span>
                         </label>
-                        <label class="border border-gray-300 p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
+                        <label class="border border-gray-300 p-2 md:p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
                             <input type="radio" name="finish" class="hidden">
-                            <span class="text-sm font-light text-gray-700">Raw Corten Steel</span>
+                            <span class="text-[10px] md:text-sm font-light text-gray-700">Raw Corten Steel</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[13px] tracking-wide text-gray-900 font-bold mb-3 uppercase">Total SQM / Dimensions</label>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="number" placeholder="Total Area (SQM)" class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black rounded-sm">
-                        <input type="number" placeholder="Quantity" class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black rounded-sm">
+                    <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Total SQM / Dimensions</label>
+                    <div class="grid grid-cols-2 gap-3 md:gap-4">
+                        <input type="number" placeholder="Total Area (SQM)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
+                        <input type="number" placeholder="Quantity" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
                     </div>
                 </div>
                 
                 <div>
-                    <label class="block text-[13px] tracking-wide text-gray-900 font-bold mb-3 uppercase">Contractor / Site Notes</label>
-                    <textarea rows="3" placeholder="Specify site requirements, delivery schedules, or structural steel grades..." class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black resize-none rounded-sm"></textarea>
+                    <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Contractor / Site Notes</label>
+                    <textarea rows="3" placeholder="Specify site requirements, delivery schedules, or structural steel grades..." class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black resize-none rounded-sm"></textarea>
                 </div>
 
                 <div class="py-2">
-                    <label class="block text-gray-500 mb-2 text-[13px] tracking-wide font-bold uppercase">Upload DXF/DWG/PDF Files</label>
-                    <input type="file" class="w-full text-gray-600 bg-transparent focus:outline-none" multiple>
+                    <label class="block text-gray-500 mb-2 text-[10px] md:text-[13px] tracking-wide font-bold uppercase">Upload DXF/DWG/PDF Files</label>
+                    <input type="file" class="w-full text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm" multiple>
                 </div>
             </form>
         </div>
 
-        <div class="p-6 border-t border-gray-200 bg-gray-50">
-            <button class="w-full bg-[#313834] text-white py-4 text-sm font-bold uppercase tracking-widest hover:bg-black transition-colors rounded-sm shadow-md">
+        <div class="p-4 md:p-6 border-t border-gray-200 bg-gray-50">
+            <button class="btn-solid w-full border-none shadow-md">
                 Request Commercial Quote
             </button>
-            <p class="text-center text-xs text-gray-500 mt-3 font-light">Drawings will be securely routed via n8n for engineering review.</p>
+            <p class="text-center text-[9px] md:text-xs text-gray-500 mt-2 md:mt-3 font-light">Drawings will be securely routed via n8n for engineering review.</p>
         </div>
     </div>
 
@@ -308,52 +368,59 @@
         }
     </script>
 
-    <!-- Footer -->
-    <footer class="bg-[#0a0a0a] border-t border-gray-900 py-20 px-6 lg:px-[10%] mt-12">
-        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-[14px] text-gray-400">
+    <!-- Expanded Footer (Identical Mobile/PC Micro-Typography) -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%] mt-12">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
+            
             <div>
-                <p class="text-white font-bold tracking-widest mb-4 uppercase">Residential</p>
-                <ul class="space-y-3 font-light">
-                    <li><a href="../residential/index.html" class="hover:text-white transition-colors">Kitchens</a></li>
-                    <li><a href="../residential/index.html" class="hover:text-white transition-colors">Bathrooms & Spas</a></li>
-                    <li><a href="../residential/index.html" class="hover:text-white transition-colors">Bedrooms & Living Spaces</a></li>
-                    <li><a href="../residential/index.html" class="hover:text-white transition-colors">Staircases & Railings</a></li>
-                    <li><a href="../residential/index.html" class="hover:text-white transition-colors">Residential Doors & Gates</a></li>
-                    <li><a href="../residential/index.html" class="hover:text-white transition-colors">Wine Rooms & Displays</a></li>
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Residential</p>
+                <ul class="space-y-2 md:space-y-3 font-light">
+                    <li><a href="../residential/" class="hover:text-white transition-colors">Kitchens</a></li>
+                    <li><a href="../residential/" class="hover:text-white transition-colors">Bathrooms & Spas</a></li>
+                    <li><a href="../residential/" class="hover:text-white transition-colors">Bedrooms & Living Spaces</a></li>
+                    <li><a href="../residential/" class="hover:text-white transition-colors">Staircases & Railings</a></li>
+                    <li><a href="../residential/" class="hover:text-white transition-colors">Residential Doors & Gates</a></li>
+                    <li><a href="../residential/" class="hover:text-white transition-colors">Wine Rooms & Displays</a></li>
                 </ul>
             </div>
+
             <div>
-                <p class="text-white font-bold tracking-widest mb-4 uppercase">Commercial</p>
-                <ul class="space-y-3 font-light">
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Commercial</p>
+                <ul class="space-y-2 md:space-y-3 font-light">
                     <li><a href="#" class="hover:text-white transition-colors">Restaurants & Bars</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Lobbies & Amenity Areas</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Commercial Architectural Screens</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Signage & Branding</a></li>
                 </ul>
             </div>
+
             <div>
-                <ul class="space-y-4">
-                    <li><a href="#" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Craft</a></li>
-                    <li><a href="#" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Process</a></li>
-                    <li><a href="../index.html#projects" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Press & Projects</a></li>
-                    <li><a href="../index.html#contact" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Contact</a></li>
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Company</p>
+                <ul class="space-y-2 md:space-y-4 font-light">
+                    <li><a href="#" class="uppercase hover:text-gray-300 transition-colors">Craft</a></li>
+                    <li><a href="#" class="uppercase hover:text-gray-300 transition-colors">Process</a></li>
+                    <li><a href="../#projects" class="uppercase hover:text-gray-300 transition-colors">Press & Projects</a></li>
+                    <li><a href="../#contact" class="uppercase hover:text-gray-300 transition-colors">Contact</a></li>
                 </ul>
             </div>
-            <div>
-                <p class="text-gray-300 font-light mb-4">Sign up for our newsletter.</p>
-                <form class="flex border-b border-gray-700 pb-2 mb-8">
-                    <input type="text" placeholder="First Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm mr-2">
-                    <input type="text" placeholder="Last Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm mr-2 border-l border-gray-700 pl-2">
-                    <input type="email" placeholder="Email*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm border-l border-gray-700 pl-2">
-                    <button type="submit" class="text-white font-bold text-xs ml-2 hover:text-gray-400">SUBMIT</button>
+
+            <div class="col-span-2 lg:col-span-1">
+                <p class="text-gray-300 font-light mb-3 md:mb-4">Sign up for our newsletter.</p>
+                <form class="flex border-b border-gray-700 pb-2 mb-6 md:mb-8">
+                    <input type="text" placeholder="First Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-[10px] md:text-sm mr-2">
+                    <input type="text" placeholder="Last*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-[10px] md:text-sm mr-2 border-l border-gray-700 pl-2">
+                    <input type="email" placeholder="Email*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-[10px] md:text-sm border-l border-gray-700 pl-2">
+                    <button type="submit" class="text-white font-bold text-[9px] md:text-xs ml-2 hover:text-gray-400">SUBMIT</button>
                 </form>
+
                 <div class="space-y-1 font-light">
                     <p>Johannesburg South, Gauteng</p>
                     <p>South Africa</p>
-                    <p class="pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
+                    <p class="pt-2 md:pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
                     <p>Mon-Fri: 8am - 5pm SAST</p>
                 </div>
             </div>
+
         </div>
     </footer>
 

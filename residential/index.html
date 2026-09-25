@@ -37,22 +37,23 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navigation -->
+    <!-- Navigation (Path updated to find root logo and pages) -->
     <nav class="fixed w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
         <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html">
-                <img src="logo-white.png" alt="Magle Logo" class="h-10 object-contain">
+            <a href="../index.html">
+                <!-- "../" tells the code to look in the main folder for the logo -->
+                <img src="../logo-white.png" alt="Magle Logo" class="h-10 object-contain">
             </a>
             <div class="hidden lg:flex space-x-8 text-[13px] font-medium tracking-[0.1em] text-gray-300">
-                <a href="residential.html" class="text-white transition-colors">RESIDENTIAL</a>
-                <a href="index.html#commercial" class="hover:text-white transition-colors">COMMERCIAL</a>
-                <a href="index.html#projects" class="hover:text-white transition-colors">PROJECTS</a>
-                <a href="index.html#contact" class="hover:text-white transition-colors">CONTACT</a>
+                <a href="index.html" class="text-white transition-colors">RESIDENTIAL</a>
+                <a href="../commercial/index.html" class="hover:text-white transition-colors">COMMERCIAL</a>
+                <a href="../index.html#projects" class="hover:text-white transition-colors">PROJECTS</a>
+                <a href="../index.html#contact" class="hover:text-white transition-colors">CONTACT</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section (Updated for Cinematic Landscape Image) -->
+    <!-- Hero Section -->
     <header class="pt-40 pb-20 px-6 lg:px-[10%] bg-[#fafafa]">
         <div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -64,9 +65,9 @@
                     From illuminated property signage and grand automated entry gates, to precision laser-cut privacy screens ready for installation. We engineer the details that secure and elevate your home.
                 </p>
             </div>
-            <!-- Widescreen Hero Image Container -->
-            <div class="h-[400px] lg:h-[550px] w-full overflow-hidden rounded-md shadow-2xl">
-                <img src="herro.webp" alt="Illuminated House Exterior with Custom Gate and Sign" class="w-full h-full object-cover">
+            <!-- Images in the same folder don't need ../ -->
+            <div class="flex justify-center items-center w-full">
+                <img src="herro.webp" alt="Illuminated House Exterior with Custom Gate and Sign" class="w-full max-w-[500px] object-contain rounded-sm shadow-md">
             </div>
         </div>
     </header>
@@ -85,7 +86,7 @@
                 <p class="text-lg text-gray-600 font-light leading-relaxed mb-6">
                     True architectural metalwork must align with a building's structure from the blueprint phase. We provide engineering design-assist to ensure complex exterior concepts—like full-balcony laser-cut enclosures and seamless structural privacy screens—can be mechanically executed flawlessly.
                 </p>
-                <a href="index.html#contact" class="btn-outline">Consult With An Engineer</a>
+                <a href="../index.html#contact" class="btn-outline">Consult With An Engineer</a>
             </div>
         </div>
     </section>
@@ -105,7 +106,6 @@
         <!-- Full 9-Item Product Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
-            <!-- Item 1: Address Plate -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="address-plate.webp" alt="Metal Address Plate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -122,7 +122,6 @@
                 </button>
             </div>
 
-            <!-- Item 2: Braai Cabinets -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="braai-cabinets.webp" alt="Outdoor Braai Cabinets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -139,7 +138,6 @@
                 </button>
             </div>
 
-            <!-- Item 3: Gas Cage -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="gas-cage.webp" alt="Gas Cylinder Cage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -156,7 +154,6 @@
                 </button>
             </div>
 
-            <!-- Item 4: Automated Driveway Gate -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="driveway-gate.webp" alt="Automated Driveway Gate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -173,7 +170,6 @@
                 </button>
             </div>
 
-            <!-- Item 5: Statement Pivot Door -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="pivot-door.webp" alt="Statement Pivot Door" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -190,7 +186,6 @@
                 </button>
             </div>
 
-            <!-- Item 6: Botanical Pedestrian Gate -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="botanical-gate.webp" alt="Botanical Pedestrian Gate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -207,7 +202,6 @@
                 </button>
             </div>
 
-            <!-- Item 7: Geometric Pedestrian Gate -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="geometric-gate.webp" alt="Geometric Walkway Gate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -224,7 +218,6 @@
                 </button>
             </div>
 
-            <!-- Item 8: Pergola Canopy Panels -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="pergola-canopy.webp" alt="Laser-Cut Pergola Canopy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -241,7 +234,6 @@
                 </button>
             </div>
 
-            <!-- Item 9: Forest Boundary Fencing -->
             <div class="group">
                 <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
                     <img src="forest-fence.webp" alt="Forest Boundary Fencing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -371,18 +363,18 @@
             <div>
                 <p class="text-white font-bold tracking-widest mb-4 uppercase">Commercial</p>
                 <ul class="space-y-3 font-light">
-                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Restaurants & Bars</a></li>
-                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Lobbies & Amenity Areas</a></li>
-                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Commercial Architectural Screens</a></li>
-                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Signage & Branding</a></li>
+                    <li><a href="../commercial/index.html" class="hover:text-white transition-colors">Restaurants & Bars</a></li>
+                    <li><a href="../commercial/index.html" class="hover:text-white transition-colors">Lobbies & Amenity Areas</a></li>
+                    <li><a href="../commercial/index.html" class="hover:text-white transition-colors">Commercial Architectural Screens</a></li>
+                    <li><a href="../commercial/index.html" class="hover:text-white transition-colors">Signage & Branding</a></li>
                 </ul>
             </div>
             <div>
                 <ul class="space-y-4">
                     <li><a href="#" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Craft</a></li>
                     <li><a href="#" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Process</a></li>
-                    <li><a href="index.html#projects" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Press & Projects</a></li>
-                    <li><a href="index.html#contact" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Contact</a></li>
+                    <li><a href="../index.html#projects" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Press & Projects</a></li>
+                    <li><a href="../index.html#contact" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Contact</a></li>
                 </ul>
             </div>
             <div>

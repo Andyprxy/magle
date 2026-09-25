@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residential Metalwork | Magle Signs & Fabrications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #ffffff; color: #333333; overflow-x: hidden; }
+        
+        .btn-outline {
+            display: inline-block;
+            border: 1px solid #111111;
+            padding: 12px 24px;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #111111;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-outline:hover { background-color: #111111; color: #ffffff; }
+
+        .slide-over-panel {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide-over-panel.open { transform: translateX(0); }
+        .slide-over-overlay {
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .slide-over-overlay.open { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
+        <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html">
+                <img src="logo-white.png" alt="Magle Logo" class="h-10 object-contain">
+            </a>
+            <div class="hidden lg:flex space-x-8 text-[13px] font-medium tracking-[0.1em] text-gray-300">
+                <a href="residential.html" class="text-white transition-colors">RESIDENTIAL</a>
+                <a href="index.html#commercial" class="hover:text-white transition-colors">COMMERCIAL</a>
+                <a href="index.html#projects" class="hover:text-white transition-colors">PROJECTS</a>
+                <a href="index.html#contact" class="hover:text-white transition-colors">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Updated for Cinematic Landscape Image) -->
+    <header class="pt-40 pb-20 px-6 lg:px-[10%] bg-[#fafafa]">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <p class="text-[12px] font-bold tracking-[0.2em] text-gray-500 mb-4 uppercase">Interior & Exterior Architecture</p>
+                <h1 class="text-5xl md:text-6xl font-light tracking-tight text-gray-900 mb-6 leading-tight">
+                    The Residential <br>Collection
+                </h1>
+                <p class="text-lg text-gray-600 font-light leading-relaxed max-w-xl mb-8">
+                    From illuminated property signage and grand automated entry gates, to precision laser-cut privacy screens ready for installation. We engineer the details that secure and elevate your home.
+                </p>
+            </div>
+            <!-- Widescreen Hero Image Container -->
+            <div class="h-[400px] lg:h-[550px] w-full overflow-hidden rounded-md shadow-2xl">
+                <img src="herro.webp" alt="Illuminated House Exterior with Custom Gate and Sign" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </header>
+
+    <!-- Bespoke Services -->
+    <section class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
+        <h2 class="text-3xl font-light text-gray-900">Bespoke Fabrication</h2>
+        <hr class="border-t border-gray-300 mt-6 mb-16">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+            <div class="order-2 lg:order-1 flex justify-center">
+                <img src="balcony-screen.webp" alt="Architectural Balcony Enclosure" class="w-full max-w-[500px] object-contain rounded-sm shadow-md">
+            </div>
+            <div class="order-1 lg:order-2">
+                <h3 class="text-2xl font-light text-gray-900 mb-4">Architectural Privacy Screens</h3>
+                <p class="text-lg text-gray-600 font-light leading-relaxed mb-6">
+                    True architectural metalwork must align with a building's structure from the blueprint phase. We provide engineering design-assist to ensure complex exterior concepts—like full-balcony laser-cut enclosures and seamless structural privacy screens—can be mechanically executed flawlessly.
+                </p>
+                <a href="index.html#contact" class="btn-outline">Consult With An Engineer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Digital Storefront -->
+    <section class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
+        <div class="flex justify-between items-end mb-6">
+            <h2 class="text-3xl font-light text-gray-900">Standard Architectural Elements</h2>
+            <div class="hidden md:flex space-x-4 text-sm font-light text-gray-500">
+                <button class="hover:text-black border-b border-black text-black pb-1">All Items</button>
+                <button class="hover:text-black pb-1">Gates & Entry</button>
+                <button class="hover:text-black pb-1">Pergolas & Panels</button>
+            </div>
+        </div>
+        <hr class="border-t border-gray-300 mb-12">
+        
+        <!-- Full 9-Item Product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <!-- Item 1: Address Plate -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="address-plate.webp" alt="Metal Address Plate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Custom Address Plate</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Laser-cut square street number sign.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 1,250</p>
+                </div>
+                <button onclick="openPanel('Custom Address Plate', 'R 1,250', 'address-plate.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 2: Braai Cabinets -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="braai-cabinets.webp" alt="Outdoor Braai Cabinets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Outdoor Braai Cabinets</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Ventilated metal doors for built-in braais.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 8,500</p>
+                </div>
+                <button onclick="openPanel('Outdoor Braai Cabinets', 'R 8,500', 'braai-cabinets.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 3: Gas Cage -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="gas-cage.webp" alt="Gas Cylinder Cage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Gas Cylinder Safety Cage</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Freestanding, lockable metal enclosure.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 4,800</p>
+                </div>
+                <button onclick="openPanel('Gas Cylinder Safety Cage', 'R 4,800', 'gas-cage.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 4: Automated Driveway Gate -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="driveway-gate.webp" alt="Automated Driveway Gate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Automated Driveway Gate</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Heavy-duty double gate with horizontal laser-cut ventilation.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 45,000</p>
+                </div>
+                <button onclick="openPanel('Automated Driveway Gate', 'R 45,000', 'driveway-gate.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 5: Statement Pivot Door -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="pivot-door.webp" alt="Statement Pivot Door" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Statement Entry Door</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Grand entryway pivot door featuring modern light slits.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 28,000</p>
+                </div>
+                <button onclick="openPanel('Statement Entry Door', 'R 28,000', 'pivot-door.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 6: Botanical Pedestrian Gate -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="botanical-gate.webp" alt="Botanical Pedestrian Gate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Botanical Walkway Gate</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Single pedestrian gate featuring an organic palm leaf design.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 12,500</p>
+                </div>
+                <button onclick="openPanel('Botanical Walkway Gate', 'R 12,500', 'botanical-gate.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 7: Geometric Pedestrian Gate -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="geometric-gate.webp" alt="Geometric Walkway Gate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Geometric Walkway Gate</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Framed security gate with a complex geometric star pattern.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 11,800</p>
+                </div>
+                <button onclick="openPanel('Geometric Walkway Gate', 'R 11,800', 'geometric-gate.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 8: Pergola Canopy Panels -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="pergola-canopy.webp" alt="Laser-Cut Pergola Canopy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Laser-Cut Pergola Canopy</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Overhead architectural panels designed for dappled shade.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 35,000</p>
+                </div>
+                <button onclick="openPanel('Laser-Cut Pergola Canopy', 'R 35,000', 'pergola-canopy.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+            <!-- Item 9: Forest Boundary Fencing -->
+            <div class="group">
+                <div class="bg-white h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-4">
+                    <img src="forest-fence.webp" alt="Forest Boundary Fencing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start">
+                    <div class="pr-4">
+                        <h4 class="text-lg font-medium text-gray-900">Forest Boundary Fencing</h4>
+                        <p class="text-gray-500 font-light text-sm mt-1">Privacy boundary screens featuring a detailed tree silhouette.</p>
+                    </div>
+                    <p class="text-lg font-light text-gray-900 whitespace-nowrap">R 18,500</p>
+                </div>
+                <button onclick="openPanel('Forest Boundary Fencing', 'R 18,500', 'forest-fence.webp')" class="mt-4 w-full border border-gray-300 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                    Configure & Quote
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Custom Item Dedicated Section -->
+        <div class="mt-16 bg-white border border-gray-200 p-10 md:p-14 flex flex-col md:flex-row justify-between items-center rounded-sm shadow-sm">
+            <div class="mb-6 md:mb-0 md:mr-8 max-w-3xl">
+                <h3 class="text-2xl font-light text-gray-900 mb-3">Need Something Unique?</h3>
+                <p class="text-gray-600 font-light leading-relaxed">
+                    Have a specific design in mind? Whether it's a unique decorative screen, a custom-sized gate, or highly specialized metalwork, our engineering team can fabricate it to your exact specifications. Upload your CAD, DXF, or inspiration images to get started.
+                </p>
+            </div>
+            <button onclick="openPanel('Custom Fabrication Request', 'Price on Application', 'herro.webp')" class="bg-[#313834] text-white py-4 px-10 text-sm font-bold uppercase tracking-widest hover:bg-black transition-colors whitespace-nowrap rounded-sm shadow-md">
+                Build Custom Item
+            </button>
+        </div>
+
+    </section>
+
+    <!-- Slide-out Product Configurator Panel -->
+    <div id="slideOverOverlay" class="fixed inset-0 bg-black/60 z-50 slide-over-overlay" onclick="closePanel()"></div>
+    
+    <div id="slideOverPanel" class="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl slide-over-panel overflow-y-auto flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-gray-200">
+            <h2 class="text-xl font-light text-gray-900">Configure Item</h2>
+            <button onclick="closePanel()" class="text-gray-400 hover:text-black transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <div class="p-6 flex-grow">
+            <!-- Ensure modal image also doesn't stretch awkwardly -->
+            <img id="panelImage" src="" alt="Product" class="w-full h-64 object-contain rounded-sm mb-6 bg-gray-100 p-2 border border-gray-200">
+            
+            <h3 id="panelTitle" class="text-2xl font-medium text-gray-900 mb-1">Product Name</h3>
+            <p id="panelPrice" class="text-xl font-light text-gray-600 mb-8 border-b border-gray-200 pb-6">R 0.00</p>
+            
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-[13px] tracking-wide text-gray-900 font-bold mb-3 uppercase">Select Finish</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="border border-gray-300 p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
+                            <input type="radio" name="finish" class="hidden" checked>
+                            <span class="text-sm font-light text-gray-700">Matte Black</span>
+                        </label>
+                        <label class="border border-gray-300 p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
+                            <input type="radio" name="finish" class="hidden">
+                            <span class="text-sm font-light text-gray-700">Gunmetal Grey</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[13px] tracking-wide text-gray-900 font-bold mb-3 uppercase">Required Dimensions (mm)</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="number" placeholder="Height (mm)" class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black rounded-sm">
+                        <input type="number" placeholder="Width (mm)" class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black rounded-sm">
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 font-light">Custom sizes may affect final quoted price.</p>
+                </div>
+                
+                <div>
+                    <label class="block text-[13px] tracking-wide text-gray-900 font-bold mb-3 uppercase">Installation Notes / Custom Specs</label>
+                    <textarea rows="3" placeholder="Specify notes, motorization needs, or custom text..." class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black resize-none rounded-sm"></textarea>
+                </div>
+
+                <div class="py-2">
+                    <label class="block text-gray-500 mb-2 text-[13px] tracking-wide font-bold uppercase">Upload DXF/Vector File</label>
+                    <input type="file" class="w-full text-gray-600 bg-transparent focus:outline-none">
+                </div>
+            </form>
+        </div>
+
+        <div class="p-6 border-t border-gray-200 bg-gray-50">
+            <button class="w-full bg-[#313834] text-white py-4 text-sm font-bold uppercase tracking-widest hover:bg-black transition-colors rounded-sm shadow-md">
+                Request Formal Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3 font-light">A team member will review your specs and email a PDF invoice via n8n automation.</p>
+        </div>
+    </div>
+
+    <script>
+        function openPanel(title, price, imageSrc) {
+            document.getElementById('panelTitle').innerText = title;
+            document.getElementById('panelPrice').innerText = price;
+            document.getElementById('panelImage').src = imageSrc;
+            document.getElementById('slideOverOverlay').classList.add('open');
+            document.getElementById('slideOverPanel').classList.add('open');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePanel() {
+            document.getElementById('slideOverOverlay').classList.remove('open');
+            document.getElementById('slideOverPanel').classList.remove('open');
+            document.body.style.overflow = 'auto'; 
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-900 py-20 px-6 lg:px-[10%] mt-12">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-[14px] text-gray-400">
+            <div>
+                <p class="text-white font-bold tracking-widest mb-4 uppercase">Residential</p>
+                <ul class="space-y-3 font-light">
+                    <li><a href="#" class="hover:text-white transition-colors">Kitchens</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Bathrooms & Spas</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Bedrooms & Living Spaces</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Staircases & Railings</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Residential Doors & Gates</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Wine Rooms & Displays</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-bold tracking-widest mb-4 uppercase">Commercial</p>
+                <ul class="space-y-3 font-light">
+                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Restaurants & Bars</a></li>
+                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Lobbies & Amenity Areas</a></li>
+                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Commercial Architectural Screens</a></li>
+                    <li><a href="index.html#commercial" class="hover:text-white transition-colors">Signage & Branding</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul class="space-y-4">
+                    <li><a href="#" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Craft</a></li>
+                    <li><a href="#" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Process</a></li>
+                    <li><a href="index.html#projects" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Press & Projects</a></li>
+                    <li><a href="index.html#contact" class="text-white font-bold tracking-widest uppercase hover:text-gray-300 transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-gray-300 font-light mb-4">Sign up for our newsletter.</p>
+                <form class="flex border-b border-gray-700 pb-2 mb-8">
+                    <input type="text" placeholder="First Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm mr-2">
+                    <input type="text" placeholder="Last Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm mr-2 border-l border-gray-700 pl-2">
+                    <input type="email" placeholder="Email*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm border-l border-gray-700 pl-2">
+                    <button type="submit" class="text-white font-bold text-xs ml-2 hover:text-gray-400">SUBMIT</button>
+                </form>
+                <div class="space-y-1 font-light">
+                    <p>Johannesburg South, Gauteng</p>
+                    <p>South Africa</p>
+                    <p class="pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
+                    <p>Mon-Fri: 8am - 5pm SAST</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

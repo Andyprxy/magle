@@ -9,7 +9,7 @@
     <style>
         body { font-family: 'Roboto', sans-serif; background-color: #ffffff; color: #333333; overflow-x: hidden; }
         
-        /* Background Images */
+        /* Desktop Background Images */
         .hero-bg {
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('hero-bg.jpg') center/cover no-repeat fixed;
         }
@@ -17,7 +17,7 @@
             background: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.9)), url('form-bg.jpg') center/cover no-repeat;
         }
 
-        /* Solid Theme Button */
+        /* Solid Theme Button (Desktop) */
         .btn-solid {
             display: inline-block;
             background-color: #111111;
@@ -47,6 +47,22 @@
         /* Mobile Menu Transition */
         #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
         #mobile-menu.open { max-height: 400px; opacity: 1; }
+
+        /* Mobile Layout Overrides */
+        @media (max-width: 768px) {
+            /* Fixes the extreme zoom issue on mobile and frames the gate */
+            .hero-bg {
+                background-attachment: scroll;
+                background-position: center bottom;
+            }
+            /* Shrinks the button to fit half-width phone columns */
+            .btn-solid {
+                padding: 8px 12px;
+                font-size: 9px;
+                letter-spacing: 0.5px;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -92,90 +108,94 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
     </script>
 
-    <!-- Hero Section (Responsive Viewport Height) -->
+    <!-- Hero Section (Mobile text minimized & left-aligned, bg anchored) -->
     <header class="min-h-[100svh] hero-bg flex items-center px-6 lg:px-[10%]">
-        <div class="max-w-3xl pt-24 lg:pt-32">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-6 leading-tight">
+        <div class="max-w-3xl pt-24 lg:pt-32 text-left">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4 md:mb-6 leading-tight">
                 Interior Architectural <br>Metalwork
             </h1>
-            <p class="text-base md:text-lg text-gray-200 font-light leading-relaxed max-w-xl">
+            <p class="text-xs sm:text-sm md:text-lg text-gray-200 font-light leading-relaxed max-w-xl">
                 Magle Signs and Fabrications is a specialized architectural metalwork firm. We partner with architects and designers to provide engineering design-assist and custom metal fabrication for luxury residential and commercial architecture.
             </p>
         </div>
     </header>
 
-    <!-- Residential Section -->
-    <section id="residential" class="py-20 md:py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
-        <h2 class="text-2xl md:text-3xl font-light text-gray-900">Residential</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-12 md:mb-16">
+    <!-- Residential Section (Text Left, Image Right ALWAYS) -->
+    <section id="residential" class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
+        <h2 class="text-xl md:text-3xl font-light text-gray-900">Residential</h2>
+        <hr class="border-t border-gray-300 mt-4 md:mt-6 mb-8 md:mb-16">
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div class="order-2 lg:order-1">
-                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-6">
+        <div class="grid grid-cols-2 gap-4 md:gap-16 items-center">
+            <!-- Text on the Left -->
+            <div class="order-1">
+                <p class="text-[10px] md:text-lg text-gray-600 font-light leading-relaxed mb-3 md:mb-6">
                     Residential metalwork shows up in the details people live with every day. It shapes how a space feels when you move through it, not just how it looks in a photo.
                 </p>
-                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-8">
+                <p class="text-[10px] md:text-lg text-gray-600 font-light leading-relaxed mb-4 md:mb-8">
                     Magle supports residential projects where bespoke eco screens, custom gates, and structural steel elements need to align with architecture from the start. We stay involved early so design intent carries through fabrication and installation without compromise.
                 </p>
-                <a href="residential/" class="btn-solid w-full md:w-auto">Explore Residential Work</a>
+                <a href="residential/" class="btn-solid w-full md:w-auto">Explore Residential</a>
             </div>
-            <div class="order-1 lg:order-2 flex justify-center">
-                <img src="residential-work.jpg" alt="Residential Metalwork" class="w-full max-w-[600px] h-[300px] md:h-[400px] lg:h-[450px] object-cover rounded-sm shadow-md">
+            <!-- Image on the Right -->
+            <div class="order-2 flex justify-center">
+                <img src="residential-work.jpg" alt="Residential Metalwork" class="w-full h-[180px] md:h-[450px] object-cover rounded-sm shadow-md">
             </div>
         </div>
     </section>
 
-    <!-- Commercial Section -->
-    <section id="commercial" class="py-20 md:py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
-        <h2 class="text-2xl md:text-3xl font-light text-gray-900">Commercial</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-12 md:mb-16">
+    <!-- Commercial Section (Image Left, Text Right ALWAYS) -->
+    <section id="commercial" class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
+        <h2 class="text-xl md:text-3xl font-light text-gray-900">Commercial</h2>
+        <hr class="border-t border-gray-300 mt-4 md:mt-6 mb-8 md:mb-16">
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div class="flex justify-center">
-                <img src="commercial-work.jpg" alt="Commercial Architectural Metalwork" class="w-full max-w-[600px] h-[300px] md:h-[400px] lg:h-[450px] object-cover rounded-sm shadow-md">
+        <div class="grid grid-cols-2 gap-4 md:gap-16 items-center">
+            <!-- Image on the Left -->
+            <div class="order-1 flex justify-center">
+                <img src="commercial-work.jpg" alt="Commercial Architectural Metalwork" class="w-full h-[180px] md:h-[450px] object-cover rounded-sm shadow-md">
             </div>
-            <div>
-                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-6">
+            <!-- Text on the Right -->
+            <div class="order-2">
+                <p class="text-[10px] md:text-lg text-gray-600 font-light leading-relaxed mb-3 md:mb-6">
                     In commercial spaces, metalwork has to do more than complete a design. It has to hold up to use, coordination, and schedule pressure without losing precision.
                 </p>
-                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-8">
+                <p class="text-[10px] md:text-lg text-gray-600 font-light leading-relaxed mb-4 md:mb-8">
                     Magle works directly with project teams to fabricate architectural metalwork—from heavy-duty sliding gates to illuminated signage—that fits into complex builds and performs in demanding environments.
                 </p>
-                <a href="commercial/" class="btn-solid w-full md:w-auto">Explore Commercial Work</a>
+                <a href="commercial/" class="btn-solid w-full md:w-auto">Explore Commercial</a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Projects Gallery -->
-    <section id="projects" class="py-20 md:py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
-        <h2 class="text-2xl md:text-3xl font-light text-gray-900">Featured Projects</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-12 md:mb-16">
+    <!-- Featured Projects Gallery (3 columns ALWAYS) -->
+    <section id="projects" class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
+        <h2 class="text-xl md:text-3xl font-light text-gray-900">Featured Projects</h2>
+        <hr class="border-t border-gray-300 mt-4 md:mt-6 mb-8 md:mb-16">
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        <div class="grid grid-cols-3 gap-3 md:gap-12">
             <!-- Project 1 -->
             <div class="group cursor-pointer">
-                <div class="overflow-hidden h-[300px] md:h-[400px] lg:h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
+                <div class="overflow-hidden h-[120px] sm:h-[200px] md:h-[500px] rounded-sm shadow-sm mb-2 md:mb-4 bg-gray-200">
                     <img src="project-1.jpg" alt="Project 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
-                <p class="text-gray-700 font-light text-[14px] md:text-[15px] leading-relaxed">
+                <p class="text-gray-700 font-light text-[8px] sm:text-xs md:text-[15px] leading-tight md:leading-relaxed">
                     “Custom Illuminated Steel Signage For Retail Storefront”
                 </p>
             </div>
             <!-- Project 2 -->
             <div class="group cursor-pointer">
-                <div class="overflow-hidden h-[300px] md:h-[400px] lg:h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
+                <div class="overflow-hidden h-[120px] sm:h-[200px] md:h-[500px] rounded-sm shadow-sm mb-2 md:mb-4 bg-gray-200">
                     <img src="project-2.jpg" alt="Project 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
-                <p class="text-gray-700 font-light text-[14px] md:text-[15px] leading-relaxed">
+                <p class="text-gray-700 font-light text-[8px] sm:text-xs md:text-[15px] leading-tight md:leading-relaxed">
                     “Step Inside an Architectural Sliding Gate Installation Transformed by Magle”
                 </p>
             </div>
             <!-- Project 3 -->
             <div class="group cursor-pointer">
-                <div class="overflow-hidden h-[300px] md:h-[400px] lg:h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
+                <div class="overflow-hidden h-[120px] sm:h-[200px] md:h-[500px] rounded-sm shadow-sm mb-2 md:mb-4 bg-gray-200">
                     <img src="project-3.jpg" alt="Project 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
-                <p class="text-gray-700 font-light text-[14px] md:text-[15px] leading-relaxed">
+                <p class="text-gray-700 font-light text-[8px] sm:text-xs md:text-[15px] leading-tight md:leading-relaxed">
                     “Precision Laser Cut Eco Screens for Modern Entertaining Spaces”
                 </p>
             </div>
@@ -218,7 +238,7 @@
                     </div>
                     
                     <div class="py-2 border-b border-gray-300">
-                        <label class="block text-gray-500 mb-2 text-[13px] tracking-wide">Upload DXF/Vector File for Quoting</label>
+                        <label class="block text-gray-500 mb-2 text-[13px] tracking-wide">Upload DXF/Vector File</label>
                         <input type="file" class="w-full text-gray-600 bg-transparent focus:outline-none">
                     </div>
                     

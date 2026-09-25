@@ -29,6 +29,7 @@
             color: #ffffff;
             transition: all 0.3s ease;
             border-radius: 2px;
+            text-align: center;
         }
         .btn-solid:hover {
             background-color: #333333;
@@ -42,124 +43,152 @@
             transition: background 0.3s;
         }
         input[type="file"]::file-selector-button:hover { background: rgba(0,0,0,0.05); }
+
+        /* Mobile Menu Transition */
+        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Navigation (Dark Theme) -->
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
         <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
             <a href="#">
-                <img src="logo-white.png" alt="Magle Logo" class="h-10 object-contain">
+                <img src="logo-white.png" alt="Magle Logo" class="h-8 md:h-10 object-contain">
             </a>
+
+            <!-- Desktop Links -->
             <div class="hidden lg:flex space-x-8 text-[13px] font-medium tracking-[0.1em] text-gray-300">
-                <a href="residential/index.html" class="hover:text-white transition-colors">RESIDENTIAL</a>
-                <a href="commercial/index.html" class="hover:text-white transition-colors">COMMERCIAL</a>
+                <a href="residential/" class="hover:text-white transition-colors">RESIDENTIAL</a>
+                <a href="commercial/" class="hover:text-white transition-colors">COMMERCIAL</a>
                 <a href="#projects" class="hover:text-white transition-colors">PROJECTS</a>
                 <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
             </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menu-icon" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-6 py-6 text-[13px] font-medium tracking-[0.1em] text-gray-300">
+            <a href="residential/" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">RESIDENTIAL</a>
+            <a href="commercial/" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">COMMERCIAL</a>
+            <a href="#projects" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">PROJECTS</a>
+            <a href="#contact" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">CONTACT</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="min-h-screen hero-bg flex items-center px-6 lg:px-[10%]">
-        <div class="max-w-3xl pt-20">
-            <h1 class="text-5xl md:text-6xl font-light tracking-tight text-white mb-6 leading-tight">
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+    </script>
+
+    <!-- Hero Section (Responsive Viewport Height) -->
+    <header class="min-h-[100svh] hero-bg flex items-center px-6 lg:px-[10%]">
+        <div class="max-w-3xl pt-24 lg:pt-32">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-6 leading-tight">
                 Interior Architectural <br>Metalwork
             </h1>
-            <p class="text-lg text-gray-200 font-light leading-relaxed max-w-xl">
+            <p class="text-base md:text-lg text-gray-200 font-light leading-relaxed max-w-xl">
                 Magle Signs and Fabrications is a specialized architectural metalwork firm. We partner with architects and designers to provide engineering design-assist and custom metal fabrication for luxury residential and commercial architecture.
             </p>
         </div>
     </header>
 
     <!-- Residential Section -->
-    <section id="residential" class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
-        <h2 class="text-3xl font-light text-gray-900">Residential</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-16">
+    <section id="residential" class="py-20 md:py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
+        <h2 class="text-2xl md:text-3xl font-light text-gray-900">Residential</h2>
+        <hr class="border-t border-gray-300 mt-6 mb-12 md:mb-16">
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
             <div class="order-2 lg:order-1">
-                <p class="text-lg text-gray-600 font-light leading-relaxed mb-6">
+                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-6">
                     Residential metalwork shows up in the details people live with every day. It shapes how a space feels when you move through it, not just how it looks in a photo.
                 </p>
-                <p class="text-lg text-gray-600 font-light leading-relaxed mb-8">
+                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-8">
                     Magle supports residential projects where bespoke eco screens, custom gates, and structural steel elements need to align with architecture from the start. We stay involved early so design intent carries through fabrication and installation without compromise.
                 </p>
-                <!-- Linked to Residential Folder with Solid Button -->
-                <a href="residential/index.html" class="btn-solid">Explore Residential Work</a>
+                <a href="residential/" class="btn-solid w-full md:w-auto">Explore Residential Work</a>
             </div>
             <div class="order-1 lg:order-2 flex justify-center">
-                <img src="residential-work.jpg" alt="Residential Metalwork" class="w-full max-w-[600px] h-[450px] object-cover rounded-sm shadow-md">
+                <img src="residential-work.jpg" alt="Residential Metalwork" class="w-full max-w-[600px] h-[300px] md:h-[400px] lg:h-[450px] object-cover rounded-sm shadow-md">
             </div>
         </div>
     </section>
 
     <!-- Commercial Section -->
-    <section id="commercial" class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
-        <h2 class="text-3xl font-light text-gray-900">Commercial</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-16">
+    <section id="commercial" class="py-20 md:py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white">
+        <h2 class="text-2xl md:text-3xl font-light text-gray-900">Commercial</h2>
+        <hr class="border-t border-gray-300 mt-6 mb-12 md:mb-16">
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
             <div class="flex justify-center">
-                <img src="commercial-work.jpg" alt="Commercial Architectural Metalwork" class="w-full max-w-[600px] h-[450px] object-cover rounded-sm shadow-md">
+                <img src="commercial-work.jpg" alt="Commercial Architectural Metalwork" class="w-full max-w-[600px] h-[300px] md:h-[400px] lg:h-[450px] object-cover rounded-sm shadow-md">
             </div>
             <div>
-                <p class="text-lg text-gray-600 font-light leading-relaxed mb-6">
+                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-6">
                     In commercial spaces, metalwork has to do more than complete a design. It has to hold up to use, coordination, and schedule pressure without losing precision.
                 </p>
-                <p class="text-lg text-gray-600 font-light leading-relaxed mb-8">
+                <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed mb-8">
                     Magle works directly with project teams to fabricate architectural metalwork—from heavy-duty sliding gates to illuminated signage—that fits into complex builds and performs in demanding environments.
                 </p>
-                <!-- Linked to Commercial Folder with Solid Button -->
-                <a href="commercial/index.html" class="btn-solid">Explore Commercial Work</a>
+                <a href="commercial/" class="btn-solid w-full md:w-auto">Explore Commercial Work</a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Projects Gallery (Restored Original Images) -->
-    <section id="projects" class="py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
-        <h2 class="text-3xl font-light text-gray-900">Featured Projects</h2>
-        <hr class="border-t border-gray-300 mt-6 mb-16">
+    <!-- Featured Projects Gallery -->
+    <section id="projects" class="py-20 md:py-24 px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-[#fafafa]">
+        <h2 class="text-2xl md:text-3xl font-light text-gray-900">Featured Projects</h2>
+        <hr class="border-t border-gray-300 mt-6 mb-12 md:mb-16">
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <!-- Project 1 -->
             <div class="group cursor-pointer">
-                <div class="overflow-hidden h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
+                <div class="overflow-hidden h-[300px] md:h-[400px] lg:h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
                     <img src="project-1.jpg" alt="Project 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
-                <p class="text-gray-700 font-light text-[15px] leading-relaxed">
+                <p class="text-gray-700 font-light text-[14px] md:text-[15px] leading-relaxed">
                     “Custom Illuminated Steel Signage For Retail Storefront”
                 </p>
             </div>
             <!-- Project 2 -->
             <div class="group cursor-pointer">
-                <div class="overflow-hidden h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
+                <div class="overflow-hidden h-[300px] md:h-[400px] lg:h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
                     <img src="project-2.jpg" alt="Project 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
-                <p class="text-gray-700 font-light text-[15px] leading-relaxed">
+                <p class="text-gray-700 font-light text-[14px] md:text-[15px] leading-relaxed">
                     “Step Inside an Architectural Sliding Gate Installation Transformed by Magle”
                 </p>
             </div>
             <!-- Project 3 -->
             <div class="group cursor-pointer">
-                <div class="overflow-hidden h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
+                <div class="overflow-hidden h-[300px] md:h-[400px] lg:h-[500px] rounded-sm shadow-sm mb-4 bg-gray-200">
                     <img src="project-3.jpg" alt="Project 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
-                <p class="text-gray-700 font-light text-[15px] leading-relaxed">
+                <p class="text-gray-700 font-light text-[14px] md:text-[15px] leading-relaxed">
                     “Precision Laser Cut Eco Screens for Modern Entertaining Spaces”
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Ready to Start Form (Restored form-bg image, left-aligned, rounded edges) -->
-    <section id="contact" class="py-32 px-6 form-bg">
+    <!-- Ready to Start Form -->
+    <section id="contact" class="py-24 md:py-32 px-4 md:px-6 form-bg">
         <div class="max-w-[1600px] mx-auto lg:px-[10%]">
-            <div class="max-w-2xl bg-white p-10 md:p-14 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.2)] border border-gray-100">
-                <div class="mb-10 text-left">
-                    <h2 class="text-3xl font-light mb-4 text-gray-900">Ready to Start?</h2>
-                    <p class="text-gray-600 font-light">
+            <div class="max-w-2xl mx-auto bg-white p-8 md:p-14 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.2)] border border-gray-100">
+                <div class="mb-8 md:mb-10 text-left">
+                    <h2 class="text-2xl md:text-3xl font-light mb-4 text-gray-900">Ready to Start?</h2>
+                    <p class="text-gray-600 font-light text-sm md:text-base">
                         Bring us in early and we’ll work with you from spec to installation. Share your project details and a team member will follow up within one business day.
                     </p>
                 </div>
@@ -194,7 +223,7 @@
                     </div>
                     
                     <div class="pt-6">
-                        <button type="submit" class="btn-solid w-auto border-none">
+                        <button type="submit" class="btn-solid w-full md:w-auto border-none">
                             Request A Project Estimate
                         </button>
                     </div>
@@ -204,30 +233,30 @@
     </section>
 
     <!-- Expanded Footer -->
-    <footer class="bg-[#0a0a0a] border-t border-gray-900 py-20 px-6 lg:px-[10%]">
-        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-[14px] text-gray-400">
+    <footer class="bg-[#0a0a0a] border-t border-gray-900 py-16 md:py-20 px-6 lg:px-[10%]">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-[14px] text-gray-400">
             
             <!-- Column 1: Residential -->
             <div>
-                <p class="text-white font-bold tracking-widest mb-4 uppercase">Residential</p>
-                <ul class="space-y-3 font-light">
-                    <li><a href="residential/index.html" class="hover:text-white transition-colors">Kitchens</a></li>
-                    <li><a href="residential/index.html" class="hover:text-white transition-colors">Bathrooms & Spas</a></li>
-                    <li><a href="residential/index.html" class="hover:text-white transition-colors">Bedrooms & Living Spaces</a></li>
-                    <li><a href="residential/index.html" class="hover:text-white transition-colors">Staircases & Railings</a></li>
-                    <li><a href="residential/index.html" class="hover:text-white transition-colors">Residential Doors & Gates</a></li>
-                    <li><a href="residential/index.html" class="hover:text-white transition-colors">Wine Rooms & Displays</a></li>
+                <p class="text-white font-bold tracking-widest mb-4 uppercase text-sm">Residential</p>
+                <ul class="space-y-3 font-light text-[13px] md:text-[14px]">
+                    <li><a href="residential/" class="hover:text-white transition-colors">Kitchens</a></li>
+                    <li><a href="residential/" class="hover:text-white transition-colors">Bathrooms & Spas</a></li>
+                    <li><a href="residential/" class="hover:text-white transition-colors">Bedrooms & Living Spaces</a></li>
+                    <li><a href="residential/" class="hover:text-white transition-colors">Staircases & Railings</a></li>
+                    <li><a href="residential/" class="hover:text-white transition-colors">Residential Doors & Gates</a></li>
+                    <li><a href="residential/" class="hover:text-white transition-colors">Wine Rooms & Displays</a></li>
                 </ul>
             </div>
 
             <!-- Column 2: Commercial -->
             <div>
-                <p class="text-white font-bold tracking-widest mb-4 uppercase">Commercial</p>
-                <ul class="space-y-3 font-light">
-                    <li><a href="commercial/index.html" class="hover:text-white transition-colors">Restaurants & Bars</a></li>
-                    <li><a href="commercial/index.html" class="hover:text-white transition-colors">Lobbies & Amenity Areas</a></li>
-                    <li><a href="commercial/index.html" class="hover:text-white transition-colors">Commercial Architectural Screens</a></li>
-                    <li><a href="commercial/index.html" class="hover:text-white transition-colors">Signage & Branding</a></li>
+                <p class="text-white font-bold tracking-widest mb-4 uppercase text-sm">Commercial</p>
+                <ul class="space-y-3 font-light text-[13px] md:text-[14px]">
+                    <li><a href="commercial/" class="hover:text-white transition-colors">Restaurants & Bars</a></li>
+                    <li><a href="commercial/" class="hover:text-white transition-colors">Lobbies & Amenity Areas</a></li>
+                    <li><a href="commercial/" class="hover:text-white transition-colors">Commercial Architectural Screens</a></li>
+                    <li><a href="commercial/" class="hover:text-white transition-colors">Signage & Branding</a></li>
                 </ul>
             </div>
 
@@ -243,15 +272,15 @@
 
             <!-- Column 4: Newsletter & Contact -->
             <div>
-                <p class="text-gray-300 font-light mb-4">Sign up for our newsletter.</p>
+                <p class="text-gray-300 font-light mb-4 text-[13px] md:text-[14px]">Sign up for our newsletter.</p>
                 <form class="flex border-b border-gray-700 pb-2 mb-8">
-                    <input type="text" placeholder="First Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm mr-2">
-                    <input type="text" placeholder="Last Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm mr-2 border-l border-gray-700 pl-2">
-                    <input type="email" placeholder="Email*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-sm border-l border-gray-700 pl-2">
-                    <button type="submit" class="text-white font-bold text-xs ml-2 hover:text-gray-400">SUBMIT</button>
+                    <input type="text" placeholder="First Name*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-xs md:text-sm mr-2">
+                    <input type="text" placeholder="Last*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-xs md:text-sm mr-2 border-l border-gray-700 pl-2">
+                    <input type="email" placeholder="Email*" required class="bg-transparent w-1/3 focus:outline-none text-white placeholder-gray-500 text-xs md:text-sm border-l border-gray-700 pl-2">
+                    <button type="submit" class="text-white font-bold text-[10px] md:text-xs ml-2 hover:text-gray-400">SUBMIT</button>
                 </form>
 
-                <div class="space-y-1 font-light">
+                <div class="space-y-1 font-light text-[13px] md:text-[14px]">
                     <p>Johannesburg South, Gauteng</p>
                     <p>South Africa</p>
                     <p class="pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>

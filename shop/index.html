@@ -2,9 +2,8 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport locked to prevent zoom -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!-- Forces the browser to keep the light theme, regardless of device dark mode settings -->
+    <!-- Forces the browser to keep the light theme -->
     <meta name="color-scheme" content="light">
     <title>Shop | Magle Signs & Fabrications</title>
     <link rel="icon" type="image/png" href="../favicon.png">
@@ -22,17 +21,20 @@
         .slide-over-panel.open { transform: translateX(0); }
         .slide-over-overlay { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .slide-over-overlay.open { opacity: 1; pointer-events: auto; }
+        
         input[type="file"]::file-selector-button { background: transparent; border: 1px solid #ccc; padding: 10px 20px; color: #333; cursor: pointer; text-transform: uppercase; font-size: 12px; font-weight: 500; transition: background 0.3s; }
         input[type="file"]::file-selector-button:hover { background: rgba(0,0,0,0.05); }
-        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
-        #mobile-menu.open { max-height: 400px; opacity: 1; }
+        
+        /* Perfectly Fixed Mobile Menu Animation */
+        #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease-in-out; padding-top: 0; padding-bottom: 0; border-top-width: 0; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; padding-top: 1.25rem; padding-bottom: 1.25rem; border-top-width: 1px; }
+        
         @media (max-width: 768px) {
             .btn-solid { padding: 8px 10px; font-size: 9px; letter-spacing: 0.5px; width: 100%; }
             input[type="file"]::file-selector-button { padding: 6px 12px; font-size: 10px; }
         }
         html { scroll-padding-top: 100px; }
         
-        /* Fade in animation for filtering */
         .product-item { transition: opacity 0.3s ease; }
     </style>
 </head>
@@ -48,6 +50,7 @@
         <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             
             <a href="../home/" class="flex items-center">
+                <!-- Enlarged Logo -->
                 <img src="../logo-white.png" alt="Magle Logo" class="h-12 sm:h-14 md:h-16 object-contain">
             </a>
 
@@ -60,18 +63,19 @@
                 <a href="../contact/" class="hover:text-white transition-colors">CONTACT</a>
             </div>
 
-            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
+            <!-- Hamburger Button (Fixed trigger) -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-4 py-5 text-[11px] font-medium tracking-[0.1em] text-gray-300">
-            <a href="../home/" class="hover:text-white transition-colors w-full text-center py-2">HOME</a>
-            <a href="#" class="text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">SHOP</a>
-            <a href="../custom/" class="hover:text-white transition-colors w-full text-center py-2">CUSTOM ORDERS</a>
-            <a href="../gallery/" class="hover:text-white transition-colors w-full text-center py-2">GALLERY</a>
-            <a href="../contact/" class="hover:text-white transition-colors w-full text-center py-2">CONTACT</a>
+        <!-- Mobile Menu (Fixed transition) -->
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-white/10 flex flex-col items-center space-y-4 text-[11px] font-medium tracking-[0.1em] text-gray-300">
+            <a href="../home/" class="hover:text-white transition-colors w-full text-center">HOME</a>
+            <a href="#" class="text-white transition-colors w-full text-center" onclick="toggleMobileMenu()">SHOP</a>
+            <a href="../custom/" class="hover:text-white transition-colors w-full text-center">CUSTOM ORDERS</a>
+            <a href="../gallery/" class="hover:text-white transition-colors w-full text-center">GALLERY</a>
+            <a href="../contact/" class="hover:text-white transition-colors w-full text-center">CONTACT</a>
         </div>
     </nav>
 
@@ -93,7 +97,6 @@
                 <p class="text-[10px] md:text-sm text-gray-500 font-light max-w-xl">Configure and request quotes for our standard collection.</p>
             </div>
             
-            <!-- Working Category Filters -->
             <div class="flex flex-wrap space-x-3 md:space-x-6 text-[10px] md:text-sm font-light text-gray-500 mt-4 md:mt-0" id="filter-buttons">
                 <button onclick="filterItems('all', this)" class="filter-btn hover:text-black border-b-2 border-black text-black pb-1">All Products</button>
                 <button onclick="filterItems('signs', this)" class="filter-btn hover:text-black pb-1 transition-colors">Signs</button>
@@ -107,7 +110,6 @@
     <section class="pb-16 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto min-h-[60vh]">
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10" id="product-grid">
             
-            <!-- Item 1 (SIGNS) -->
             <div class="group flex flex-col justify-between product-item" data-category="signs">
                 <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="address-plate.webp" alt="Metal Address Plate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -122,7 +124,6 @@
                 <button onclick="openPanel('Custom Address Plate', 'address-plate.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
             </div>
 
-            <!-- Item 2 (SIGNS) -->
             <div class="group flex flex-col justify-between product-item" data-category="signs">
                 <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="corporate-signage.webp" alt="3D Corporate Signage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -137,7 +138,6 @@
                 <button onclick="openPanel('3D Corporate Signage', 'corporate-signage.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
             </div>
 
-            <!-- Item 3 (STAIRS) -->
             <div class="group flex flex-col justify-between product-item" data-category="stairs">
                 <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="staircase-balustrade.webp" alt="Architectural Stairs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -152,7 +152,6 @@
                 <button onclick="openPanel('Architectural Stairs', 'staircase-balustrade.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
             </div>
 
-            <!-- Item 4 (STAIRS) -->
             <div class="group flex flex-col justify-between product-item" data-category="stairs">
                 <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="driveway-gate.webp" alt="Steel Stringer Stairs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -167,7 +166,6 @@
                 <button onclick="openPanel('Steel Stringer Stairs', 'driveway-gate.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
             </div>
 
-            <!-- Item 5 (BALUSTRADES) -->
             <div class="group flex flex-col justify-between product-item" data-category="balustrades">
                 <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="balcony-screen.webp" alt="Custom Balustrades" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -182,7 +180,6 @@
                 <button onclick="openPanel('Custom Balustrades', 'balcony-screen.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
             </div>
 
-            <!-- Item 6 (BALUSTRADES) -->
             <div class="group flex flex-col justify-between product-item" data-category="balustrades">
                 <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
                     <img src="rust-partition.webp" alt="Architectural Railings" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
@@ -200,15 +197,18 @@
         </div>
     </section>
 
-    <!-- FOOTER SECTION -->
+    <!-- SPLIT MOBILE FOOTER SECTION -->
     <footer id="contact" class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%]">
-        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
-            <div>
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
+            
+            <!-- Logo spans full width on mobile, 1 column on PC -->
+            <div class="col-span-2 md:col-span-1 text-center md:text-left flex flex-col items-center md:items-start">
                 <img src="../logo-white.png" alt="Magle Logo" class="h-10 mb-4 object-contain">
                 <p class="font-light leading-relaxed max-w-xs">Custom metalwork, signage, and laser-cut designs fabricated directly from our workshop.</p>
             </div>
             
-            <div>
+            <!-- Navigation snaps to left on mobile -->
+            <div class="text-left">
                 <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Navigation</p>
                 <ul class="space-y-2 md:space-y-3 font-light">
                     <li><a href="../home/" class="hover:text-white transition-colors">Home</a></li>
@@ -218,15 +218,17 @@
                 </ul>
             </div>
 
-            <div>
+            <!-- Contact snaps to right on mobile, left on PC -->
+            <div class="text-right md:text-left">
                 <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Contact Us</p>
                 <div class="space-y-1 font-light">
-                    <p>Pretoria, Gauteng, South Africa</p>
+                    <p>Pretoria, Gauteng</p>
+                    <p>South Africa</p>
                     <p class="pt-2 md:pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
                     <p><a href="https://wa.me/27672544418" class="hover:text-white transition-colors">+27 67 254 4418</a></p>
-                    <p>Mon-Fri: 8am - 5pm SAST</p>
                 </div>
             </div>
+
         </div>
     </footer>
 
@@ -248,16 +250,21 @@
             <p class="text-sm md:text-xl font-medium text-gray-900 mb-6 md:mb-8 border-b border-gray-200 pb-4 md:pb-6">Price on Request</p>
             
             <form class="space-y-4 md:space-y-6">
+                <!-- Visually Selected Radio Buttons -->
                 <div>
                     <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Select Finish</label>
                     <div class="grid grid-cols-2 gap-2 md:gap-3">
-                        <label class="border border-gray-300 p-2 md:p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
-                            <input type="radio" name="finish" class="hidden" checked>
-                            <span class="text-[10px] md:text-sm font-light text-gray-700">Matte Black</span>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="finish" class="peer hidden" checked>
+                            <div class="border border-gray-300 p-2 md:p-3 text-center rounded-sm transition-colors peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black peer-checked:bg-gray-50 hover:border-gray-400">
+                                <span class="text-[10px] md:text-sm font-medium text-gray-700 peer-checked:text-black">Matte Black</span>
+                            </div>
                         </label>
-                        <label class="border border-gray-300 p-2 md:p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
-                            <input type="radio" name="finish" class="hidden">
-                            <span class="text-[10px] md:text-sm font-light text-gray-700">Gunmetal Grey</span>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="finish" class="peer hidden">
+                            <div class="border border-gray-300 p-2 md:p-3 text-center rounded-sm transition-colors peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black peer-checked:bg-gray-50 hover:border-gray-400">
+                                <span class="text-[10px] md:text-sm font-medium text-gray-700 peer-checked:text-black">Gunmetal Grey</span>
+                            </div>
                         </label>
                     </div>
                 </div>
@@ -290,8 +297,12 @@
         </div>
     </div>
 
-    <!-- JavaScript for Panel and Filters -->
+    <!-- JavaScript for Menu, Panel and Filters -->
     <script>
+        function toggleMobileMenu() { 
+            document.getElementById('mobile-menu').classList.toggle('open'); 
+        }
+
         function openPanel(title, imageSrc) {
             document.getElementById('panelTitle').innerText = title;
             document.getElementById('panelImage').src = imageSrc;
@@ -306,22 +317,18 @@
             document.body.style.overflow = 'auto'; 
         }
 
-        // Function to filter products by category
         function filterItems(category, btnElement) {
             const items = document.querySelectorAll('.product-item');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            // Reset all buttons to gray text
             buttons.forEach(btn => {
                 btn.classList.remove('border-b-2', 'border-black', 'text-black');
                 btn.classList.add('text-gray-500');
             });
             
-            // Set clicked button to active (black with border)
             btnElement.classList.add('border-b-2', 'border-black', 'text-black');
             btnElement.classList.remove('text-gray-500');
 
-            // Show/Hide items based on category
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
                     item.style.display = 'flex';

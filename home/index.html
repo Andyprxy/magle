@@ -6,7 +6,7 @@
     <!-- Forces the browser to keep the light theme -->
     <meta name="color-scheme" content="light">
     <title>Home | Magle Signs & Fabrications</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -15,14 +15,13 @@
         .bg-white { background-color: #ffffff !important; }
         .text-gray-900 { color: #111827 !important; }
         
-        /* Fixed Background Image Path */
-        .hero-bg { background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('hero-bg.jpg') center/cover no-repeat fixed; }
+        .hero-bg { background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('../hero-bg.jpg') center/cover no-repeat fixed; }
         
         .btn-solid { display: inline-block; background-color: #111111; padding: 14px 28px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: #ffffff; transition: all 0.3s ease; border-radius: 2px; text-align: center; border: none; cursor: pointer; }
         .btn-solid:hover { background-color: #333333; transform: translateY(-1px); }
         
-        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
-        #mobile-menu.open { max-height: 400px; opacity: 1; }
+        #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease-in-out; padding-top: 0; padding-bottom: 0; border-top-width: 0; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; padding-top: 1.25rem; padding-bottom: 1.25rem; border-top-width: 1px; }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -55,32 +54,27 @@
     <nav class="sticky top-0 w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
         <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center">
-                <img src="logo-white.png" alt="Magle Logo" class="h-12 sm:h-14 md:h-16 object-contain">
+                <img src="../logo-white.png" alt="Magle Logo" class="h-12 sm:h-14 md:h-16 object-contain">
             </a>
             <div class="hidden lg:flex space-x-8 text-[12px] font-medium tracking-[0.1em] text-gray-300">
                 <a href="#" class="text-white border-b border-white pb-1 transition-colors">HOME</a>
-                <!-- Links still go to other folders using ../ -->
                 <a href="../shop/" class="hover:text-white transition-colors">SHOP</a>
                 <a href="../custom/" class="hover:text-white transition-colors">CUSTOM ORDERS</a>
                 <a href="../gallery/" class="hover:text-white transition-colors">GALLERY</a>
                 <a href="../contact/" class="hover:text-white transition-colors">CONTACT</a>
             </div>
-            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
-        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-4 py-5 text-[11px] font-medium tracking-[0.1em] text-gray-300">
-            <a href="#" class="text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">HOME</a>
-            <a href="../shop/" class="hover:text-white transition-colors w-full text-center py-2">SHOP</a>
-            <a href="../custom/" class="hover:text-white transition-colors w-full text-center py-2">CUSTOM ORDERS</a>
-            <a href="../gallery/" class="hover:text-white transition-colors w-full text-center py-2">GALLERY</a>
-            <a href="../contact/" class="hover:text-white transition-colors w-full text-center py-2">CONTACT</a>
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-white/10 flex flex-col items-center space-y-4 text-[11px] font-medium tracking-[0.1em] text-gray-300">
+            <a href="#" class="text-white transition-colors w-full text-center" onclick="toggleMobileMenu()">HOME</a>
+            <a href="../shop/" class="hover:text-white transition-colors w-full text-center">SHOP</a>
+            <a href="../custom/" class="hover:text-white transition-colors w-full text-center">CUSTOM ORDERS</a>
+            <a href="../gallery/" class="hover:text-white transition-colors w-full text-center">GALLERY</a>
+            <a href="../contact/" class="hover:text-white transition-colors w-full text-center">CONTACT</a>
         </div>
     </nav>
-    <script>
-        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-    </script>
 
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/27672544418?text=Hi%20Magle%20Signs,%20how%20can%20you%20assist%20me?" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-2xl z-50 hover:scale-110 transition-transform flex items-center justify-center group">
@@ -96,37 +90,37 @@
         </div>
     </header>
 
-    <!-- SHOP BY CATEGORY SECTION -->
+    <!-- SHOP BY CATEGORY SECTION (Centered on Mobile & PC) -->
     <section class="py-12 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto bg-white border-b border-gray-100">
         <h2 class="text-center text-sm md:text-xl font-bold tracking-widest text-gray-900 uppercase mb-8">Shop By Category</h2>
-        <div class="flex space-x-6 md:space-x-12 overflow-x-auto no-scrollbar pb-4 items-center md:justify-center">
+        <div class="flex space-x-4 sm:space-x-6 md:space-x-12 overflow-x-auto no-scrollbar pb-4 items-center justify-center w-full">
             <a href="../shop/" class="flex flex-col items-center group flex-shrink-0">
-                <div class="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
-                    <img src="staircase-balustrade.webp" alt="Balustrades" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="w-14 h-14 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
+                    <img src="../staircase-balustrade.webp" alt="Balustrades" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <span class="text-[9px] md:text-xs font-medium text-gray-600 group-hover:text-black uppercase tracking-wider">Balustrades</span>
             </a>
             <a href="../shop/" class="flex flex-col items-center group flex-shrink-0">
-                <div class="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
-                    <img src="commercial-hero.webp" alt="Commercial" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="w-14 h-14 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
+                    <img src="../commercial-hero.webp" alt="Commercial" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <span class="text-[9px] md:text-xs font-medium text-gray-600 group-hover:text-black uppercase tracking-wider">Commercial</span>
             </a>
             <a href="../shop/" class="flex flex-col items-center group flex-shrink-0">
-                <div class="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
-                    <img src="driveway-gate.webp" alt="Gates" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="w-14 h-14 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
+                    <img src="../driveway-gate.webp" alt="Gates" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <span class="text-[9px] md:text-xs font-medium text-gray-600 group-hover:text-black uppercase tracking-wider">Gates</span>
             </a>
             <a href="../shop/" class="flex flex-col items-center group flex-shrink-0">
-                <div class="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
-                    <img src="address-plate.webp" alt="Signs" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="w-14 h-14 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
+                    <img src="../address-plate.webp" alt="Signs" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <span class="text-[9px] md:text-xs font-medium text-gray-600 group-hover:text-black uppercase tracking-wider">Signs</span>
             </a>
             <a href="../shop/" class="flex flex-col items-center group flex-shrink-0">
-                <div class="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
-                    <img src="balcony-screen.webp" alt="Screens" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="w-14 h-14 md:w-24 md:h-24 rounded-2xl bg-gray-100 overflow-hidden mb-3 border border-gray-200 group-hover:border-black transition-colors shadow-sm">
+                    <img src="../balcony-screen.webp" alt="Screens" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <span class="text-[9px] md:text-xs font-medium text-gray-600 group-hover:text-black uppercase tracking-wider">Screens</span>
             </a>
@@ -144,96 +138,96 @@
                 <!-- Group 1 -->
                 <div class="flex space-x-4 md:space-x-6 px-3">
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="rust-partition.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Corten Screen">
+                        <img src="../rust-partition.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Corten Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Corten Design Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="branching-tree.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Tree Branch Screen">
+                        <img src="../branching-tree.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Tree Branch Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Branching Tree Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="geometric-floral.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Geometric Floral">
+                        <img src="../geometric-floral.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Geometric Floral">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Geometric Floral Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="chevron-slats.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Chevron Screen">
+                        <img src="../chevron-slats.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Chevron Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Chevron Slatted Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balcony Screen">
+                        <img src="../balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balcony Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Precision Balcony Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="geometric-cube.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Cube Screen">
+                        <img src="../geometric-cube.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Cube Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Geometric Cube Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="botanical-leaf.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Botanical Screen">
+                        <img src="../botanical-leaf.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Botanical Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Botanical Leaf Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="abstract-lines.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Abstract Lines">
+                        <img src="../abstract-lines.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Abstract Lines">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Abstract Lines Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="ornate-scrollwork.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Ornate Screen">
+                        <img src="../ornate-scrollwork.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Ornate Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Ornate Scrollwork Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                 </div>
                 
-                <!-- Group 2 (Exact Duplicate for Seamless Infinite Scroll) -->
+                <!-- Group 2 (Duplicate for Infinite Scroll) -->
                 <div class="flex space-x-4 md:space-x-6 px-3">
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="rust-partition.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Corten Screen">
+                        <img src="../rust-partition.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Corten Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Corten Design Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="branching-tree.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Tree Branch Screen">
+                        <img src="../branching-tree.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Tree Branch Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Branching Tree Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="geometric-floral.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Geometric Floral">
+                        <img src="../geometric-floral.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Geometric Floral">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Geometric Floral Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="chevron-slats.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Chevron Screen">
+                        <img src="../chevron-slats.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Chevron Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Chevron Slatted Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balcony Screen">
+                        <img src="../balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balcony Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Precision Balcony Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="geometric-cube.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Cube Screen">
+                        <img src="../geometric-cube.jfif" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Cube Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Geometric Cube Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="botanical-leaf.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Botanical Screen">
+                        <img src="../botanical-leaf.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Botanical Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Botanical Leaf Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="abstract-lines.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Abstract Lines">
+                        <img src="../abstract-lines.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Abstract Lines">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Abstract Lines Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="ornate-scrollwork.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Ornate Screen">
+                        <img src="../ornate-scrollwork.webp" class="w-full h-40 md:h-56 object-contain rounded-md mb-3" alt="Ornate Screen">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Ornate Scrollwork Screen</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
@@ -248,7 +242,7 @@
     <section class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto">
         <div class="flex flex-col md:flex-row bg-white rounded-xl md:rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div class="md:w-1/2 h-64 md:h-auto">
-                <img src="custom-hero.jpg" class="w-full h-full object-cover" alt="Custom Laser Cutting">
+                <img src="../custom-hero.jpg" class="w-full h-full object-cover" alt="Custom Laser Cutting">
             </div>
             <div class="md:w-1/2 p-8 md:p-16 flex flex-col justify-center text-left">
                 <h3 class="text-xl md:text-3xl font-bold tracking-tight text-gray-900 mb-4 uppercase">Let's Create Your Custom Piece Today</h3>
@@ -272,22 +266,22 @@
                 <!-- Group 1 -->
                 <div class="flex space-x-4 md:space-x-6 px-3">
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Upper Flow Balustrades</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="staircase-balustrade.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../staircase-balustrade.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Commercial Balustrades</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="forest-fence.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../forest-fence.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Forest Flow Design</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="pergola-canopy.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../pergola-canopy.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Pergola Design Rails</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
@@ -296,22 +290,22 @@
                 <!-- Group 2 -->
                 <div class="flex space-x-4 md:space-x-6 px-3">
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../balcony-screen.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Upper Flow Balustrades</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="staircase-balustrade.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../staircase-balustrade.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Commercial Balustrades</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="forest-fence.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../forest-fence.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Forest Flow Design</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
-                        <img src="pergola-canopy.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
+                        <img src="../pergola-canopy.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Balustrade">
                         <h4 class="text-[10px] md:text-sm font-medium text-gray-900 text-center">Pergola Design Rails</h4>
                         <p class="text-[8px] md:text-xs text-gray-500 text-center mt-1">Price on Request</p>
                     </a>
@@ -322,31 +316,41 @@
         </div>
     </section>
 
-    <!-- FOOTER SECTION -->
+    <!-- SPLIT MOBILE FOOTER SECTION -->
     <footer id="contact" class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%]">
-        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
-            <div>
-                <img src="logo-white.png" alt="Magle Logo" class="h-10 mb-4 object-contain">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
+            
+            <div class="col-span-2 md:col-span-1 text-center md:text-left flex flex-col items-center md:items-start">
+                <img src="../logo-white.png" alt="Magle Logo" class="h-10 mb-4 object-contain">
                 <p class="font-light leading-relaxed max-w-xs">Custom metalwork, signage, and laser-cut designs fabricated directly from our workshop.</p>
             </div>
-            <div>
+            
+            <div class="text-left">
                 <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Navigation</p>
                 <ul class="space-y-2 md:space-y-3 font-light">
+                    <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
                     <li><a href="../shop/" class="hover:text-white transition-colors">Shop Catalog</a></li>
                     <li><a href="../custom/" class="hover:text-white transition-colors">Custom Orders</a></li>
-                    <li><a href="../contact/" class="hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="../gallery/" class="hover:text-white transition-colors">Project Gallery</a></li>
                 </ul>
             </div>
-            <div>
+
+            <div class="text-right md:text-left">
                 <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Contact Us</p>
                 <div class="space-y-1 font-light">
-                    <p>Pretoria, Gauteng, South Africa</p>
+                    <p>Pretoria, Gauteng</p>
+                    <p>South Africa</p>
                     <p class="pt-2 md:pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
                     <p><a href="https://wa.me/27672544418" class="hover:text-white transition-colors">+27 67 254 4418</a></p>
-                    <p>Mon-Fri: 8am - 5pm SAST</p>
                 </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        function toggleMobileMenu() { 
+            document.getElementById('mobile-menu').classList.toggle('open'); 
+        }
+    </script>
 </body>
 </html>

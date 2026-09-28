@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Forces the browser to keep the light theme -->
+    <meta name="color-scheme" content="light">
+    <title>Project Gallery | Magle Signs & Fabrications</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Forced light theme colors */
+        body { font-family: 'Roboto', sans-serif; background-color: #fafafa; color: #333333; overflow-x: hidden; color-scheme: light; }
+        .bg-white { background-color: #ffffff !important; }
+        .text-gray-900 { color: #111827 !important; }
+        
+        .btn-solid { display: inline-block; background-color: #111111; padding: 14px 28px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: #ffffff; transition: all 0.3s ease; border-radius: 2px; text-align: center; border: none; cursor: pointer; }
+        .btn-solid:hover { background-color: #333333; transform: translateY(-1px); }
+        
+        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
+        
+        /* Lightbox Styles */
+        #lightbox { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        
+        /* Gallery Filter Animation */
+        .gallery-item { transition: opacity 0.4s ease, transform 0.4s ease; }
+        .gallery-item.hidden-item { display: none; }
+
+        @media (max-width: 768px) {
+            .btn-solid { padding: 10px 14px; font-size: 10px; width: 100%; }
+        }
+    </style>
+</head>
+<body class="antialiased bg-[#fafafa]">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-[#8b0000] text-white text-[9px] md:text-xs text-center py-2 tracking-wide font-medium z-50 relative">
+        Explore our portfolio of precision architectural metalwork and bespoke designs.
+    </div>
+
+    <!-- Main Navigation Ribbon -->
+    <nav class="sticky top-0 w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            
+            <a href="../home/" class="flex items-center">
+                <!-- Enlarged Logo loaded locally -->
+                <img src="logo-white.png" alt="Magle Logo" class="h-12 sm:h-14 md:h-16 object-contain">
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex space-x-8 text-[12px] font-medium tracking-[0.1em] text-gray-300">
+                <a href="../home/" class="hover:text-white transition-colors">HOME</a>
+                <a href="../shop/" class="hover:text-white transition-colors">SHOP</a>
+                <a href="../custom/" class="hover:text-white transition-colors">CUSTOM ORDERS</a>
+                <a href="#" class="text-white border-b border-white pb-1 transition-colors">GALLERY</a>
+                <a href="../contact/" class="hover:text-white transition-colors">CONTACT</a>
+            </div>
+
+            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-4 py-5 text-[11px] font-medium tracking-[0.1em] text-gray-300">
+            <a href="../home/" class="hover:text-white transition-colors w-full text-center py-2">HOME</a>
+            <a href="../shop/" class="hover:text-white transition-colors w-full text-center py-2">SHOP</a>
+            <a href="../custom/" class="hover:text-white transition-colors w-full text-center py-2">CUSTOM ORDERS</a>
+            <a href="#" class="text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">GALLERY</a>
+            <a href="../contact/" class="hover:text-white transition-colors w-full text-center py-2">CONTACT</a>
+        </div>
+    </nav>
+    <script>
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+    </script>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/27672544418?text=Hi%20Magle%20Signs,%20I%20am%20looking%20at%20your%20gallery%20and%20have%20a%20question." target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-2xl z-50 hover:scale-110 transition-transform flex items-center justify-center group">
+        <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- GALLERY HEADER & FILTERS -->
+    <section class="pt-12 md:pt-20 pb-8 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto border-b border-gray-200">
+        <div class="flex flex-col md:flex-row md:items-end justify-between">
+            <div class="mb-6 md:mb-0">
+                <nav class="text-[9px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-2 flex items-center space-x-2">
+                    <a href="../home/" class="hover:text-black transition-colors">Home</a>
+                    <span>></span>
+                    <span class="text-black">Gallery</span>
+                </nav>
+                <h1 class="text-3xl md:text-5xl font-light tracking-tight text-gray-900 mb-2">Project Portfolio</h1>
+                <p class="text-[10px] md:text-sm text-gray-500 font-light max-w-xl">Click on any image to view the precision details of our custom fabrications.</p>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-3 md:gap-6 text-[10px] md:text-sm font-light text-gray-500">
+                <button onclick="filterGallery('all', this)" class="filter-btn text-black border-b-2 border-black pb-1 transition-colors">All Projects</button>
+                <button onclick="filterGallery('screens', this)" class="filter-btn hover:text-black pb-1 transition-colors">Laser Screens</button>
+                <button onclick="filterGallery('gates', this)" class="filter-btn hover:text-black pb-1 transition-colors">Gates & Fences</button>
+                <button onclick="filterGallery('balustrades', this)" class="filter-btn hover:text-black pb-1 transition-colors">Balustrades</button>
+                <button onclick="filterGallery('signage', this)" class="filter-btn hover:text-black pb-1 transition-colors">Signage & Corporate</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASONRY / GRID GALLERY -->
+    <section class="py-12 md:py-16 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto min-h-screen">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6" id="gallery-grid">
+            
+            <!-- SCREENS -->
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('branching-tree.webp')">
+                <img src="branching-tree.webp" alt="Branching Tree Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('botanical-leaf.webp')">
+                <img src="botanical-leaf.webp" alt="Botanical Leaf Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('geometric-floral.webp')">
+                <img src="geometric-floral.webp" alt="Geometric Floral Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('abstract-lines.webp')">
+                <img src="abstract-lines.webp" alt="Abstract Lines Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('chevron-slats.jfif')">
+                <img src="chevron-slats.jfif" alt="Chevron Slats Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('geometric-cube.jfif')">
+                <img src="geometric-cube.jfif" alt="Geometric Cube Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('ornate-scrollwork.webp')">
+                <img src="ornate-scrollwork.webp" alt="Ornate Scrollwork Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="screens" onclick="openLightbox('rust-partition.webp')">
+                <img src="rust-partition.webp" alt="Corten Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <!-- GATES & FENCES -->
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px] md:col-span-2" data-category="gates" onclick="openLightbox('project-2.jpg')">
+                <img src="project-2.jpg" alt="Sliding Gate Project" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="gates" onclick="openLightbox('driveway-gate.webp')">
+                <img src="driveway-gate.webp" alt="Driveway Gate" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="gates" onclick="openLightbox('geometric-gate.webp')">
+                <img src="geometric-gate.webp" alt="Geometric Walkway Gate" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px] md:col-span-2" data-category="gates" onclick="openLightbox('forest-fence.webp')">
+                <img src="forest-fence.webp" alt="Forest Boundary Fencing" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <!-- BALUSTRADES -->
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="balustrades" onclick="openLightbox('balcony-screen.webp')">
+                <img src="balcony-screen.webp" alt="Precision Balcony Screen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px] md:col-span-2" data-category="balustrades" onclick="openLightbox('staircase-balustrade.webp')">
+                <img src="staircase-balustrade.webp" alt="Staircase Balustrade" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="balustrades" onclick="openLightbox('residential-work.jpg')">
+                <img src="residential-work.jpg" alt="Residential Architecture" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <!-- SIGNAGE & COMMERCIAL -->
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px] md:col-span-2" data-category="signage" onclick="openLightbox('project-1.jpg')">
+                <img src="project-1.jpg" alt="Commercial Storefront Signage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="signage" onclick="openLightbox('corporate-signage.webp')">
+                <img src="corporate-signage.webp" alt="Corporate Signage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="signage" onclick="openLightbox('address-plate.webp')">
+                <img src="address-plate.webp" alt="Custom Address Plate" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            
+            <!-- OTHER NOTABLE PROJECTS -->
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px] md:col-span-2" data-category="commercial" onclick="openLightbox('commercial-hero.webp')">
+                <img src="commercial-hero.webp" alt="Commercial Overview" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="signage" onclick="openLightbox('braai-cabinets.webp')">
+                <img src="braai-cabinets.webp" alt="Braai Cabinets" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px]" data-category="gates" onclick="openLightbox('gas-cage.webp')">
+                <img src="gas-cage.webp" alt="Gas Safety Cage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="gallery-item group relative overflow-hidden rounded-sm cursor-pointer shadow-sm border border-gray-100 h-[180px] md:h-[350px] md:col-span-2 lg:col-span-4" data-category="screens" onclick="openLightbox('pergola-canopy.webp')">
+                <img src="pergola-canopy.webp" alt="Pergola Canopy Wide" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FULLSCREEN LIGHTBOX -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 md:p-10 cursor-zoom-out" onclick="closeLightbox()">
+        <!-- Close Button -->
+        <button class="absolute top-6 right-6 text-white hover:text-gray-400 focus:outline-none transition-colors" onclick="closeLightbox()">
+            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <!-- The Image -->
+        <img id="lightbox-img" src="" alt="Fullscreen Project" class="max-h-full max-w-full object-contain rounded-sm shadow-2xl" onclick="event.stopPropagation();">
+    </div>
+
+    <!-- JavaScript for Filters and Lightbox -->
+    <script>
+        // Gallery Filter System
+        function filterGallery(category, btnElement) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                btn.classList.remove('border-b-2', 'border-black', 'text-black');
+                btn.classList.add('text-gray-500');
+            });
+            
+            // Set active button
+            btnElement.classList.add('border-b-2', 'border-black', 'text-black');
+            btnElement.classList.remove('text-gray-500');
+
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.remove('hidden-item');
+                } else {
+                    item.classList.add('hidden-item');
+                }
+            });
+        }
+
+        // Cinematic Lightbox System
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            
+            lightbox.classList.remove('open');
+            document.body.style.overflow = 'auto'; // Restore background scrolling
+            
+            // Clear source after fade out to prevent visual snapping
+            setTimeout(() => { document.getElementById('lightbox-img').src = ''; }, 300);
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
+        });
+    </script>
+
+    <!-- FOOTER SECTION -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%] mt-auto">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
+            <div>
+                <!-- Enlarged Footer Logo -->
+                <img src="logo-white.png" alt="Magle Logo" class="h-10 mb-4 object-contain">
+                <p class="font-light leading-relaxed max-w-xs">Custom metalwork, signage, and laser-cut designs fabricated directly from our workshop.</p>
+            </div>
+            
+            <div>
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Navigation</p>
+                <ul class="space-y-2 md:space-y-3 font-light">
+                    <li><a href="../home/" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="../shop/" class="hover:text-white transition-colors">Shop Catalog</a></li>
+                    <li><a href="../custom/" class="hover:text-white transition-colors">Custom Orders</a></li>
+                    <li><a href="../contact/" class="hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Contact Us</p>
+                <div class="space-y-1 font-light">
+                    <p>Pretoria, Gauteng, South Africa</p>
+                    <p class="pt-2 md:pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
+                    <p><a href="https://wa.me/27672544418" class="hover:text-white transition-colors">+27 67 254 4418</a></p>
+                    <p>Mon-Fri: 8am - 5pm SAST</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport locked to prevent zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Forces the browser to keep the light theme, regardless of device dark mode settings -->
+    <meta name="color-scheme" content="light">
+    <title>Shop | Magle Signs & Fabrications</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Forced light theme colors */
+        body { font-family: 'Roboto', sans-serif; background-color: #fafafa; color: #333333; overflow-x: hidden; color-scheme: light; }
+        .bg-white { background-color: #ffffff !important; }
+        .text-gray-900 { color: #111827 !important; }
+        
+        .btn-solid { display: inline-block; background-color: #111111; padding: 14px 28px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: #ffffff; transition: all 0.3s ease; border-radius: 2px; text-align: center; border: none; cursor: pointer; }
+        .btn-solid:hover { background-color: #333333; transform: translateY(-1px); }
+        .slide-over-panel { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slide-over-panel.open { transform: translateX(0); }
+        .slide-over-overlay { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .slide-over-overlay.open { opacity: 1; pointer-events: auto; }
+        input[type="file"]::file-selector-button { background: transparent; border: 1px solid #ccc; padding: 10px 20px; color: #333; cursor: pointer; text-transform: uppercase; font-size: 12px; font-weight: 500; transition: background 0.3s; }
+        input[type="file"]::file-selector-button:hover { background: rgba(0,0,0,0.05); }
+        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
+        @media (max-width: 768px) {
+            .btn-solid { padding: 8px 10px; font-size: 9px; letter-spacing: 0.5px; width: 100%; }
+            input[type="file"]::file-selector-button { padding: 6px 12px; font-size: 10px; }
+        }
+        html { scroll-padding-top: 100px; }
+        
+        /* Fade in animation for filtering */
+        .product-item { transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased bg-[#fafafa]">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-[#8b0000] text-white text-[9px] md:text-xs text-center py-2 tracking-wide font-medium z-50 relative">
+        Get custom metalwork and laser-cut designs directly from the manufacturer. Browse our collection below.
+    </div>
+
+    <!-- Main Navigation Ribbon -->
+    <nav class="sticky top-0 w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            
+            <a href="../home/" class="flex items-center">
+                <img src="../logo-white.png" alt="Magle Logo" class="h-12 sm:h-14 md:h-16 object-contain">
+            </a>
+
+            <!-- Desktop Links (Routed to home folder) -->
+            <div class="hidden lg:flex space-x-8 text-[12px] font-medium tracking-[0.1em] text-gray-300">
+                <a href="../home/" class="hover:text-white transition-colors">HOME</a>
+                <a href="#" class="text-white border-b border-white pb-1 transition-colors">SHOP</a>
+                <a href="../home/#custom-orders" class="hover:text-white transition-colors">CUSTOM ORDERS</a>
+                <a href="../home/#gallery" class="hover:text-white transition-colors">GALLERY</a>
+                <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
+            </div>
+
+            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Routed to home folder) -->
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-4 py-5 text-[11px] font-medium tracking-[0.1em] text-gray-300">
+            <a href="../home/" class="hover:text-white transition-colors w-full text-center py-2">HOME</a>
+            <a href="#" class="text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">SHOP</a>
+            <a href="../home/#custom-orders" class="hover:text-white transition-colors w-full text-center py-2">CUSTOM ORDERS</a>
+            <a href="../home/#gallery" class="hover:text-white transition-colors w-full text-center py-2">GALLERY</a>
+            <a href="#contact" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/27672544418?text=Hi%20Magle%20Signs,%20how%20can%20you%20assist%20me?" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-2xl z-50 hover:scale-110 transition-transform flex items-center justify-center group">
+        <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- PRODUCT CATALOG HEADER -->
+    <section class="relative pt-12 md:pt-16 pb-8 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-gray-300 pb-4">
+            <div>
+                <nav class="text-[9px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-2 flex items-center space-x-2">
+                    <a href="../home/" class="hover:text-black transition-colors">Home</a>
+                    <span>></span>
+                    <span class="text-black">Shop</span>
+                </nav>
+                <h1 class="text-2xl md:text-5xl font-light tracking-tight text-gray-900 mb-2">Product Catalog</h1>
+                <p class="text-[10px] md:text-sm text-gray-500 font-light max-w-xl">Configure and request quotes for our standard collection.</p>
+            </div>
+            
+            <!-- Working Category Filters -->
+            <div class="flex flex-wrap space-x-3 md:space-x-6 text-[10px] md:text-sm font-light text-gray-500 mt-4 md:mt-0" id="filter-buttons">
+                <button onclick="filterItems('all', this)" class="filter-btn hover:text-black border-b-2 border-black text-black pb-1">All Products</button>
+                <button onclick="filterItems('signs', this)" class="filter-btn hover:text-black pb-1 transition-colors">Signs</button>
+                <button onclick="filterItems('balustrades', this)" class="filter-btn hover:text-black pb-1 transition-colors">Balustrades</button>
+                <button onclick="filterItems('stairs', this)" class="filter-btn hover:text-black pb-1 transition-colors">Stairs</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOP GRID SECTION -->
+    <section class="pb-16 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto min-h-[60vh]">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10" id="product-grid">
+            
+            <!-- Item 1 (SIGNS) -->
+            <div class="group flex flex-col justify-between product-item" data-category="signs">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
+                    <img src="address-plate.webp" alt="Metal Address Plate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Custom Address Plate</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Laser-cut square street number sign.</p>
+                    </div>
+                    <p class="text-[9px] md:text-sm font-medium text-gray-900 whitespace-nowrap">Price on Request</p>
+                </div>
+                <button onclick="openPanel('Custom Address Plate', 'address-plate.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
+            </div>
+
+            <!-- Item 2 (SIGNS) -->
+            <div class="group flex flex-col justify-between product-item" data-category="signs">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
+                    <img src="corporate-signage.webp" alt="3D Corporate Signage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">3D Corporate Signage</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Standoff-mounted dimensional metal lettering.</p>
+                    </div>
+                    <p class="text-[9px] md:text-sm font-medium text-gray-900 whitespace-nowrap">Price on Request</p>
+                </div>
+                <button onclick="openPanel('3D Corporate Signage', 'corporate-signage.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
+            </div>
+
+            <!-- Item 3 (STAIRS) -->
+            <div class="group flex flex-col justify-between product-item" data-category="stairs">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
+                    <img src="staircase-balustrade.webp" alt="Architectural Stairs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Architectural Stairs</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Fully fabricated structural staircase elements.</p>
+                    </div>
+                    <p class="text-[9px] md:text-sm font-medium text-gray-900 whitespace-nowrap">Price on Request</p>
+                </div>
+                <button onclick="openPanel('Architectural Stairs', 'staircase-balustrade.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
+            </div>
+
+            <!-- Item 4 (STAIRS) -->
+            <div class="group flex flex-col justify-between product-item" data-category="stairs">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
+                    <img src="driveway-gate.webp" alt="Steel Stringer Stairs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Steel Stringer Stairs</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Heavy-duty industrial and residential stair frames.</p>
+                    </div>
+                    <p class="text-[9px] md:text-sm font-medium text-gray-900 whitespace-nowrap">Price on Request</p>
+                </div>
+                <button onclick="openPanel('Steel Stringer Stairs', 'driveway-gate.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
+            </div>
+
+            <!-- Item 5 (BALUSTRADES) -->
+            <div class="group flex flex-col justify-between product-item" data-category="balustrades">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
+                    <img src="balcony-screen.webp" alt="Custom Balustrades" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Custom Balustrades</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Precision laser-cut staircase and balcony enclosures.</p>
+                    </div>
+                    <p class="text-[9px] md:text-sm font-medium text-gray-900 whitespace-nowrap">Price on Request</p>
+                </div>
+                <button onclick="openPanel('Custom Balustrades', 'balcony-screen.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
+            </div>
+
+            <!-- Item 6 (BALUSTRADES) -->
+            <div class="group flex flex-col justify-between product-item" data-category="balustrades">
+                <div class="bg-white h-[120px] sm:h-[180px] md:h-[350px] w-full overflow-hidden relative cursor-pointer shadow-sm rounded-sm mb-2 md:mb-4">
+                    <img src="rust-partition.webp" alt="Architectural Railings" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="flex justify-between items-start flex-grow">
+                    <div class="pr-2 md:pr-4">
+                        <h4 class="text-[10px] md:text-lg font-medium text-gray-900 leading-tight mb-0.5">Architectural Railings</h4>
+                        <p class="text-[7px] sm:text-[8px] md:text-sm text-gray-500 font-light leading-snug">Corten and steel handrails for internal/external use.</p>
+                    </div>
+                    <p class="text-[9px] md:text-sm font-medium text-gray-900 whitespace-nowrap">Price on Request</p>
+                </div>
+                <button onclick="openPanel('Architectural Railings', 'rust-partition.webp')" class="btn-solid mt-2 md:mt-4 w-full py-1.5 md:py-3 text-[7px] sm:text-[8px] md:text-xs whitespace-nowrap">Configure & Quote</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer id="contact" class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%]">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
+            <div>
+                <img src="../logo-white.png" alt="Magle Logo" class="h-10 mb-4 object-contain">
+                <p class="font-light leading-relaxed max-w-xs">Custom metalwork, signage, and laser-cut designs fabricated directly from our workshop.</p>
+            </div>
+            
+            <div>
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Navigation</p>
+                <ul class="space-y-2 md:space-y-3 font-light">
+                    <li><a href="../home/" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="../home/#custom-orders" class="hover:text-white transition-colors">Custom Orders</a></li>
+                    <li><a href="../home/#gallery" class="hover:text-white transition-colors">Project Gallery</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Contact Us</p>
+                <div class="space-y-1 font-light">
+                    <p>Pretoria, Gauteng, South Africa</p>
+                    <p class="pt-2 md:pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
+                    <p><a href="https://wa.me/27672544418" class="hover:text-white transition-colors">+27 67 254 4418</a></p>
+                    <p>Mon-Fri: 8am - 5pm SAST</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-out Product Configurator Panel -->
+    <div id="slideOverOverlay" class="fixed inset-0 bg-black/60 z-50 slide-over-overlay" onclick="closePanel()"></div>
+    
+    <div id="slideOverPanel" class="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl slide-over-panel overflow-y-auto flex flex-col">
+        <div class="flex justify-between items-center p-4 md:p-6 border-b border-gray-200">
+            <h2 class="text-lg md:text-xl font-light text-gray-900">Configure Item</h2>
+            <button onclick="closePanel()" class="text-gray-400 hover:text-black transition-colors">
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <div class="p-4 md:p-6 flex-grow">
+            <img id="panelImage" src="" alt="Product" class="w-full h-40 md:h-64 object-contain rounded-sm mb-4 md:mb-6 bg-gray-100 p-2 border border-gray-200">
+            
+            <h3 id="panelTitle" class="text-lg md:text-2xl font-medium text-gray-900 mb-1">Product Name</h3>
+            <p class="text-sm md:text-xl font-medium text-gray-900 mb-6 md:mb-8 border-b border-gray-200 pb-4 md:pb-6">Price on Request</p>
+            
+            <form class="space-y-4 md:space-y-6">
+                <div>
+                    <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Select Finish</label>
+                    <div class="grid grid-cols-2 gap-2 md:gap-3">
+                        <label class="border border-gray-300 p-2 md:p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
+                            <input type="radio" name="finish" class="hidden" checked>
+                            <span class="text-[10px] md:text-sm font-light text-gray-700">Matte Black</span>
+                        </label>
+                        <label class="border border-gray-300 p-2 md:p-3 text-center cursor-pointer hover:border-black transition-colors rounded-sm">
+                            <input type="radio" name="finish" class="hidden">
+                            <span class="text-[10px] md:text-sm font-light text-gray-700">Gunmetal Grey</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Required Dimensions</label>
+                    <div class="grid grid-cols-2 gap-3 md:gap-4">
+                        <input type="number" placeholder="Height/Length (mm)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
+                        <input type="number" placeholder="Width (mm)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Installation Notes / Custom Specs</label>
+                    <textarea rows="3" placeholder="Specify notes, motorization needs, or custom text..." class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black resize-none rounded-sm"></textarea>
+                </div>
+
+                <div class="py-2">
+                    <label class="block text-gray-500 mb-2 text-[10px] md:text-[13px] tracking-wide font-bold uppercase">Upload DXF/Vector File</label>
+                    <input type="file" class="w-full text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm">
+                </div>
+            </form>
+        </div>
+
+        <div class="p-4 md:p-6 border-t border-gray-200 bg-gray-50">
+            <button class="btn-solid w-full border-none shadow-md">
+                Submit Request
+            </button>
+            <p class="text-center text-[9px] md:text-xs text-gray-500 mt-2 md:mt-3 font-light">A team member will review your specs and email a formal quote.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Panel and Filters -->
+    <script>
+        function openPanel(title, imageSrc) {
+            document.getElementById('panelTitle').innerText = title;
+            document.getElementById('panelImage').src = imageSrc;
+            document.getElementById('slideOverOverlay').classList.add('open');
+            document.getElementById('slideOverPanel').classList.add('open');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePanel() {
+            document.getElementById('slideOverOverlay').classList.remove('open');
+            document.getElementById('slideOverPanel').classList.remove('open');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Function to filter products by category
+        function filterItems(category, btnElement) {
+            const items = document.querySelectorAll('.product-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Reset all buttons to gray text
+            buttons.forEach(btn => {
+                btn.classList.remove('border-b-2', 'border-black', 'text-black');
+                btn.classList.add('text-gray-500');
+            });
+            
+            // Set clicked button to active (black with border)
+            btnElement.classList.add('border-b-2', 'border-black', 'text-black');
+            btnElement.classList.remove('text-gray-500');
+
+            // Show/Hide items based on category
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

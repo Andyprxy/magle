@@ -13,30 +13,28 @@
         body { font-family: 'Roboto', sans-serif; background-color: #fafafa; color: #333333; overflow-x: hidden; color-scheme: light; }
         .bg-white { background-color: #ffffff !important; }
         
-        /* High-End Hero Background */
+        /* High-End Hero Background (Loading locally from custom folder) */
         .custom-hero-bg { 
-            background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.9)), url('../custom-hero.jpg') center/cover no-repeat fixed; 
+            background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.9)), url('custom-bg.jpg') center/cover no-repeat fixed; 
         }
         
         .btn-solid { display: inline-block; background-color: #111111; padding: 14px 28px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: #ffffff; transition: all 0.3s ease; border-radius: 2px; text-align: center; border: none; cursor: pointer; }
         .btn-solid:hover { background-color: #333333; transform: translateY(-1px); }
         
-        /* Custom file input styling */
         input[type="file"]::file-selector-button { background: transparent; border: 1px solid #ccc; padding: 10px 20px; color: #333; cursor: pointer; text-transform: uppercase; font-size: 12px; font-weight: 500; transition: background 0.3s; margin-right: 15px;}
         input[type="file"]::file-selector-button:hover { background: rgba(0,0,0,0.05); }
         
-        /* Form Field Styling */
-        .form-input { w-full; bg-transparent; border-b; border-gray-300; p-3; text-sm; text-gray-900; focus:outline-none; focus:border-black; transition-colors; }
-
-        #mobile-menu { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
-        #mobile-menu.open { max-height: 400px; opacity: 1; }
+        /* Fixed Mobile Menu Animation */
+        #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease-in-out; padding-top: 0; padding-bottom: 0; border-top-width: 0; }
+        #mobile-menu.open { max-height: 400px; opacity: 1; padding-top: 1.25rem; padding-bottom: 1.25rem; border-top-width: 1px; }
+        
         @media (max-width: 768px) {
             .custom-hero-bg { background-attachment: scroll; }
             .btn-solid { padding: 10px 14px; font-size: 10px; width: 100%; }
         }
     </style>
 </head>
-<body class="antialiased bg-[#fafafa]">
+<body class="antialiased bg-[#fafafa] flex flex-col min-h-screen">
 
     <!-- Top Announcement Bar -->
     <div class="bg-[#8b0000] text-white text-[9px] md:text-xs text-center py-2 tracking-wide font-medium z-50 relative">
@@ -48,6 +46,7 @@
         <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
             
             <a href="../home/" class="flex items-center">
+                <!-- Enlarged Logo pulling from root -->
                 <img src="../logo-white.png" alt="Magle Logo" class="h-12 sm:h-14 md:h-16 object-contain">
             </a>
 
@@ -57,21 +56,22 @@
                 <a href="../shop/" class="hover:text-white transition-colors">SHOP</a>
                 <a href="#" class="text-white border-b border-white pb-1 transition-colors">CUSTOM ORDERS</a>
                 <a href="../gallery/" class="hover:text-white transition-colors">GALLERY</a>
-                <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
+                <a href="../contact/" class="hover:text-white transition-colors">CONTACT</a>
             </div>
 
-            <button id="mobile-menu-btn" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
+            <!-- Hamburger Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none flex items-center justify-center h-10 w-10">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-t border-white/10 flex flex-col items-center space-y-4 py-5 text-[11px] font-medium tracking-[0.1em] text-gray-300 absolute w-full">
-            <a href="../home/" class="hover:text-white transition-colors w-full text-center py-2">HOME</a>
-            <a href="../shop/" class="hover:text-white transition-colors w-full text-center py-2">SHOP</a>
-            <a href="#" class="text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">CUSTOM ORDERS</a>
-            <a href="../gallery/" class="hover:text-white transition-colors w-full text-center py-2">GALLERY</a>
-            <a href="#contact" class="hover:text-white transition-colors w-full text-center py-2" onclick="toggleMobileMenu()">CONTACT</a>
+        <div id="mobile-menu" class="lg:hidden bg-[#0a0a0a] border-white/10 flex flex-col items-center space-y-4 text-[11px] font-medium tracking-[0.1em] text-gray-300 absolute w-full">
+            <a href="../home/" class="hover:text-white transition-colors w-full text-center">HOME</a>
+            <a href="../shop/" class="hover:text-white transition-colors w-full text-center">SHOP</a>
+            <a href="#" class="text-white transition-colors w-full text-center" onclick="toggleMobileMenu()">CUSTOM ORDERS</a>
+            <a href="../gallery/" class="hover:text-white transition-colors w-full text-center">GALLERY</a>
+            <a href="../contact/" class="hover:text-white transition-colors w-full text-center">CONTACT</a>
         </div>
     </nav>
 
@@ -81,7 +81,7 @@
     </a>
 
     <!-- HIGH-END HERO SECTION -->
-    <header class="min-h-[65svh] md:min-h-[75svh] custom-hero-bg flex items-center px-4 md:px-6 lg:px-[10%] relative -mt-8 pt-20">
+    <header class="min-h-[60svh] md:min-h-[70svh] custom-hero-bg flex items-center px-4 md:px-6 lg:px-[10%] relative -mt-8 pt-20">
         <div class="max-w-[1600px] mx-auto w-full">
             <div class="max-w-3xl text-left">
                 <nav class="text-[9px] md:text-xs font-bold tracking-widest text-gray-300 uppercase mb-4 flex items-center space-x-2">
@@ -89,10 +89,11 @@
                     <span>></span>
                     <span class="text-white">Custom Orders</span>
                 </nav>
-                <h1 class="text-3xl sm:text-4xl md:text-6xl font-light tracking-tight text-white mb-4 md:mb-6 leading-tight">
+                <!-- Scaled down headings to fit beautifully on all devices -->
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4 md:mb-6 leading-tight">
                     Bespoke Metalwork <br>& Fabrication
                 </h1>
-                <p class="text-[11px] sm:text-xs md:text-lg text-gray-300 font-light leading-relaxed max-w-xl">
+                <p class="text-[11px] md:text-sm lg:text-base text-gray-300 font-light leading-relaxed max-w-xl">
                     From unique residential balustrades to heavy-duty commercial tenders. Submit your CAD drawings, DXF files, or design inspiration directly to our engineering team for a comprehensive project review.
                 </p>
             </div>
@@ -100,54 +101,55 @@
     </header>
 
     <!-- CUSTOM SUBMISSION PORTAL -->
-    <section class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto -mt-10 relative z-10">
-        <div class="max-w-4xl mx-auto bg-white p-8 md:p-16 rounded-sm shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100">
+    <main class="flex-grow py-12 md:py-20 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto -mt-6 md:-mt-10 relative z-10 w-full">
+        <!-- Tighter padding and contained width for better scaling -->
+        <div class="max-w-4xl mx-auto bg-white p-6 md:p-12 rounded-sm shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100">
             
-            <div class="mb-8 md:mb-12 border-b border-gray-200 pb-6">
+            <div class="mb-8 md:mb-10 border-b border-gray-200 pb-6">
                 <h2 class="text-xl md:text-3xl font-light text-gray-900 mb-2">Project Submission Portal</h2>
-                <p class="text-xs md:text-sm text-gray-500 font-light">Please provide as much detail as possible to ensure an accurate engineering quote.</p>
+                <p class="text-[10px] md:text-sm text-gray-500 font-light">Please provide as much detail as possible to ensure an accurate engineering quote.</p>
             </div>
 
-            <form class="space-y-6 md:space-y-10 text-left">
+            <form class="space-y-6 md:space-y-8 text-left">
                 
                 <!-- Client Details -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     <div>
-                        <label class="block text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Full Name *</label>
+                        <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Full Name *</label>
                         <input type="text" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
-                        <label class="block text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Company (Optional)</label>
+                        <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Company (Optional)</label>
                         <input type="text" class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
-                        <label class="block text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Email Address *</label>
+                        <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Email Address *</label>
                         <input type="email" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
-                        <label class="block text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Contact Number *</label>
+                        <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Contact Number *</label>
                         <input type="tel" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                 </div>
 
                 <!-- Project Details -->
                 <div>
-                    <label class="block text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-2">Project Description *</label>
+                    <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-2">Project Description *</label>
                     <textarea rows="4" required placeholder="Describe your project, required dimensions, materials, and timeline..." class="w-full bg-transparent border border-gray-300 p-4 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors resize-none rounded-sm"></textarea>
                 </div>
                 
                 <!-- File Upload Area -->
-                <div class="bg-[#fafafa] border-2 border-dashed border-gray-300 p-6 md:p-10 text-center rounded-sm hover:border-black transition-colors">
-                    <svg class="mx-auto h-8 w-8 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="bg-[#fafafa] border-2 border-dashed border-gray-300 p-6 md:p-8 text-center rounded-sm hover:border-black transition-colors">
+                    <svg class="mx-auto h-8 w-8 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
-                    <label class="block text-gray-700 font-medium text-sm mb-2">Upload Architectural Drawings or Inspiration</label>
-                    <p class="text-xs text-gray-500 font-light mb-4">Accepted files: PDF, DXF, DWG, PNG, JPG (Max 20MB)</p>
+                    <label class="block text-gray-700 font-medium text-sm mb-1">Upload Architectural Drawings</label>
+                    <p class="text-[10px] md:text-xs text-gray-500 font-light mb-4">Accepted files: PDF, DXF, DWG, PNG, JPG (Max 20MB)</p>
                     <input type="file" multiple class="text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm mx-auto cursor-pointer">
                 </div>
                 
                 <!-- Submit Action -->
-                <div class="pt-4 flex flex-col md:flex-row items-center justify-between border-t border-gray-200 pt-8">
+                <div class="pt-4 flex flex-col md:flex-row items-center justify-between border-t border-gray-200 pt-6 md:pt-8">
                     <p class="text-[10px] md:text-xs text-gray-500 font-light mb-4 md:mb-0">Files are securely transmitted to our engineering team.</p>
                     <button type="submit" class="btn-solid w-full md:w-auto shadow-md">
                         Request Engineering Review
@@ -155,40 +157,43 @@
                 </div>
             </form>
         </div>
-    </section>
+    </main>
 
-    <!-- FOOTER SECTION -->
-    <footer id="contact" class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%] mt-8">
-        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
-            <div>
+    <!-- SPLIT MOBILE FOOTER SECTION -->
+    <footer id="contact" class="bg-[#0a0a0a] border-t border-gray-900 py-12 md:py-20 px-6 lg:px-[10%] mt-auto">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 md:gap-12 text-[10px] md:text-[14px] text-gray-400">
+            
+            <div class="col-span-2 md:col-span-1 text-center md:text-left flex flex-col items-center md:items-start">
                 <img src="../logo-white.png" alt="Magle Logo" class="h-10 mb-4 object-contain">
                 <p class="font-light leading-relaxed max-w-xs">Custom metalwork, signage, and laser-cut designs fabricated directly from our workshop.</p>
             </div>
             
-            <div>
+            <div class="text-left">
                 <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Navigation</p>
                 <ul class="space-y-2 md:space-y-3 font-light">
                     <li><a href="../home/" class="hover:text-white transition-colors">Home</a></li>
                     <li><a href="../shop/" class="hover:text-white transition-colors">Shop Catalog</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Custom Orders</a></li>
                     <li><a href="../gallery/" class="hover:text-white transition-colors">Project Gallery</a></li>
                 </ul>
             </div>
 
-            <div>
+            <div class="text-right md:text-left">
                 <p class="text-white font-bold tracking-widest mb-3 md:mb-4 uppercase text-[11px] md:text-sm">Contact Us</p>
                 <div class="space-y-1 font-light">
-                    <p>Pretoria, Gauteng, South Africa</p>
+                    <p>Pretoria, Gauteng</p>
+                    <p>South Africa</p>
                     <p class="pt-2 md:pt-4"><a href="mailto:info@magle.co.za" class="hover:text-white transition-colors">info@magle.co.za</a></p>
                     <p><a href="https://wa.me/27672544418" class="hover:text-white transition-colors">+27 67 254 4418</a></p>
-                    <p>Mon-Fri: 8am - 5pm SAST</p>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+        function toggleMobileMenu() { 
+            document.getElementById('mobile-menu').classList.toggle('open'); 
+        }
     </script>
 </body>
 </html>

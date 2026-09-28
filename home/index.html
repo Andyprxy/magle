@@ -15,8 +15,8 @@
         .bg-white { background-color: #ffffff !important; }
         .text-gray-900 { color: #111827 !important; }
         
-        /* Fixed Background Image Path (Loading locally from home folder) */
-        .hero-bg { background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('hero-bg.jpg') center/cover no-repeat fixed; }
+        /* Fixed Background Image Path (Loading from root folder) */
+        .hero-bg { background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('../hero-bg.jpg') center/cover no-repeat fixed; }
         
         .btn-solid { display: inline-block; background-color: #111111; padding: 14px 28px; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: #ffffff; transition: all 0.3s ease; border-radius: 2px; text-align: center; border: none; cursor: pointer; }
         .btn-solid:hover { background-color: #333333; transform: translateY(-1px); }
@@ -187,7 +187,7 @@
                     </a>
                 </div>
                 
-                <!-- Group 2 (Exact Duplicate) -->
+                <!-- Group 2 (Duplicate for Infinite Scroll) -->
                 <div class="flex space-x-4 md:space-x-6 px-3">
                     <a href="../shop/" class="block w-48 md:w-64 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow flex-shrink-0 border border-gray-100">
                         <img src="rust-partition.webp" class="w-full h-40 md:h-56 object-cover rounded-md mb-3" alt="Corten Screen">
@@ -245,7 +245,7 @@
     <section class="py-16 md:py-24 px-4 md:px-6 lg:px-[10%] max-w-[1600px] mx-auto">
         <div class="flex flex-col md:flex-row bg-white rounded-xl md:rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div class="md:w-1/2 h-64 md:h-auto">
-                <!-- Image pulls from root folder -->
+                <!-- Restored ../ to properly pull the custom-hero.jpg from the main root folder -->
                 <img src="../custom-hero.jpg" class="w-full h-full object-cover" alt="Custom Laser Cutting">
             </div>
             <div class="md:w-1/2 p-8 md:p-16 flex flex-col justify-center text-left">

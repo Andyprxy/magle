@@ -136,43 +136,43 @@
 
             <!-- Right Side: Form Box (65% on mobile, 66% on PC) -->
             <div class="w-[65%] md:w-2/3 p-4 sm:p-6 md:p-14 bg-white flex flex-col justify-center">
-                <form class="space-y-3 md:space-y-8 text-left">
+                <form onsubmit="submitContactForm(event)" class="space-y-3 md:space-y-8 text-left">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-8">
                         <div>
                             <label class="block text-[7px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">First Name *</label>
-                            <input type="text" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                            <input type="text" id="contactFirstName" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                         </div>
                         <div>
                             <label class="block text-[7px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Last Name *</label>
-                            <input type="text" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                            <input type="text" id="contactLastName" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-8">
                         <div>
                             <label class="block text-[7px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Email Address *</label>
-                            <input type="email" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                            <input type="email" id="contactEmail" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                         </div>
                         <div>
                             <label class="block text-[7px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Phone Number</label>
-                            <input type="tel" class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                            <input type="tel" id="contactPhone" class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-[7px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Subject</label>
-                        <select class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors cursor-pointer appearance-none">
+                        <select id="contactSubject" required class="w-full bg-transparent border-b border-gray-300 p-1 md:p-2 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors cursor-pointer appearance-none">
                             <option value="" disabled selected>Select an inquiry type...</option>
-                            <option value="catalog">Product Catalog Inquiry</option>
-                            <option value="custom">Custom Fabrication Request</option>
-                            <option value="consultation">Site Consultation</option>
-                            <option value="other">Other</option>
+                            <option value="Product Catalog Inquiry">Product Catalog Inquiry</option>
+                            <option value="Custom Fabrication Request">Custom Fabrication Request</option>
+                            <option value="Site Consultation">Site Consultation</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
 
                     <div>
                         <label class="block text-[7px] md:text-xs font-bold tracking-widest text-gray-400 uppercase mb-1 md:mb-2">Message *</label>
-                        <textarea rows="3" required placeholder="How can we help you?" class="w-full bg-transparent border border-gray-300 p-2 md:p-4 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors resize-none rounded-sm"></textarea>
+                        <textarea id="contactMessage" rows="3" required placeholder="How can we help you?" class="w-full bg-transparent border border-gray-300 p-2 md:p-4 text-[9px] md:text-sm text-gray-900 focus:outline-none focus:border-black transition-colors resize-none rounded-sm"></textarea>
                     </div>
 
                     <div class="pt-2 md:pt-4">
@@ -221,6 +221,37 @@
     <script>
         function toggleMobileMenu() { 
             document.getElementById('mobile-menu').classList.toggle('open'); 
+        }
+
+        function submitContactForm(event) {
+            // Prevent default form submission and page reload
+            event.preventDefault();
+
+            // Gather inputs
+            const firstName = document.getElementById('contactFirstName').value;
+            const lastName = document.getElementById('contactLastName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value || 'Not provided';
+            const subjectSelect = document.getElementById('contactSubject');
+            const subject = subjectSelect.value;
+            const message = document.getElementById('contactMessage').value;
+
+            // Prepare the email details
+            const emailSubject = `Contact Form Inquiry: ${subject} - ${firstName} ${lastName}`;
+            
+            let body = `Hi Magle Signs Team,\n\nI am reaching out via the contact form on your website. Please find my details and message below:\n\n`;
+            body += `--- CONTACT DETAILS ---\n`;
+            body += `Name: ${firstName} ${lastName}\n`;
+            body += `Email: ${email}\n`;
+            body += `Phone Number: ${phone}\n`;
+            body += `Inquiry Type: ${subject}\n\n`;
+            body += `--- MESSAGE ---\n`;
+            body += `${message}\n\n`;
+            body += `Thank you,\n${firstName}`;
+
+            // Open the mailto link
+            const mailtoLink = `mailto:info@magle.co.za?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
         }
     </script>
 </body>

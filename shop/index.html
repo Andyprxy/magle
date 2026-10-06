@@ -266,13 +266,13 @@
                     <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Select Finish</label>
                     <div class="grid grid-cols-2 gap-2 md:gap-3">
                         <label class="cursor-pointer">
-                            <input type="radio" name="finish" class="peer hidden" checked>
+                            <input type="radio" name="finish" value="Matte Black" class="peer hidden" checked>
                             <div class="border border-gray-300 p-2 md:p-3 text-center rounded-sm transition-colors peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black peer-checked:bg-gray-50 hover:border-gray-400">
                                 <span class="text-[10px] md:text-sm font-medium text-gray-700 peer-checked:text-black">Matte Black</span>
                             </div>
                         </label>
                         <label class="cursor-pointer">
-                            <input type="radio" name="finish" class="peer hidden">
+                            <input type="radio" name="finish" value="Gunmetal Grey" class="peer hidden">
                             <div class="border border-gray-300 p-2 md:p-3 text-center rounded-sm transition-colors peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black peer-checked:bg-gray-50 hover:border-gray-400">
                                 <span class="text-[10px] md:text-sm font-medium text-gray-700 peer-checked:text-black">Gunmetal Grey</span>
                             </div>
@@ -283,25 +283,25 @@
                 <div>
                     <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Required Dimensions</label>
                     <div class="grid grid-cols-2 gap-3 md:gap-4">
-                        <input type="number" placeholder="Height/Length (mm)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
-                        <input type="number" placeholder="Width (mm)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
+                        <input type="number" id="dimHeight" placeholder="Height/Length (mm)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
+                        <input type="number" id="dimWidth" placeholder="Width (mm)" class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black rounded-sm">
                     </div>
                 </div>
                 
                 <div>
                     <label class="block text-[11px] md:text-[13px] tracking-wide text-gray-900 font-bold mb-2 md:mb-3 uppercase">Installation Notes / Custom Specs</label>
-                    <textarea rows="3" placeholder="Specify notes, motorization needs, or custom text..." class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black resize-none rounded-sm"></textarea>
+                    <textarea id="customNotes" rows="3" placeholder="Specify notes, motorization needs, or custom text..." class="w-full border border-gray-300 p-2 md:p-3 text-[10px] md:text-sm focus:outline-none focus:border-black resize-none rounded-sm"></textarea>
                 </div>
 
                 <div class="py-2">
                     <label class="block text-gray-500 mb-2 text-[10px] md:text-[13px] tracking-wide font-bold uppercase">Upload DXF/Vector File</label>
-                    <input type="file" class="w-full text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm">
+                    <input type="file" id="fileUpload" class="w-full text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm">
                 </div>
             </form>
         </div>
 
         <div class="p-4 md:p-6 border-t border-gray-200 bg-gray-50">
-            <button class="btn-solid w-full border-none shadow-md">
+            <button type="button" onclick="submitQuoteRequest()" class="btn-solid w-full border-none shadow-md">
                 Submit Request
             </button>
             <p class="text-center text-[9px] md:text-xs text-gray-500 mt-2 md:mt-3 font-light">A team member will review your specs and email a formal quote.</p>
@@ -347,6 +347,42 @@
                     item.style.display = 'none';
                 }
             });
+        }
+
+        function submitQuoteRequest() {
+            const productName = document.getElementById('panelTitle').innerText;
+            
+            let selectedFinish = 'Not specified';
+            const finishRadios = document.getElementsByName('finish');
+            for (let radio of finishRadios) {
+                if (radio.checked) {
+                    selectedFinish = radio.value;
+                    break;
+                }
+            }
+
+            const height = document.getElementById('dimHeight').value || 'Not specified';
+            const width = document.getElementById('dimWidth').value || 'Not specified';
+            const notes = document.getElementById('customNotes').value || 'None';
+            const fileInput = document.getElementById('fileUpload');
+            const hasFile = fileInput.files.length > 0;
+
+            const subject = `Quote Request: ${productName}`;
+            
+            let body = `Hi Magle Signs Team,\n\nI would like to request a quote for the following item:\n\n`;
+            body += `Product: ${productName}\n`;
+            body += `Finish: ${selectedFinish}\n`;
+            body += `Dimensions: ${height} mm (H) x ${width} mm (W)\n`;
+            body += `Installation Notes / Custom Specs:\n${notes}\n\n`;
+            
+            if (hasFile) {
+                body += `[IMPORTANT: I have prepared a vector/DXF file (${fileInput.files[0].name}). I will manually attach it to this email before sending.]\n\n`;
+            }
+
+            body += `Thank you!`;
+
+            const mailtoLink = `mailto:info@magle.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
         }
     </script>
 </body>

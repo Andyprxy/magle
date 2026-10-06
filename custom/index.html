@@ -121,32 +121,33 @@
                 <p class="text-[10px] md:text-sm text-gray-500 font-light">Please provide as much detail as possible to ensure an accurate engineering quote.</p>
             </div>
 
-            <form class="space-y-6 md:space-y-8 text-left">
+            <!-- Intercept form submission using onsubmit -->
+            <form id="customOrderForm" onsubmit="submitCustomOrder(event)" class="space-y-6 md:space-y-8 text-left">
                 
                 <!-- Client Details -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     <div>
                         <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Full Name *</label>
-                        <input type="text" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                        <input type="text" id="clientName" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
                         <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Company (Optional)</label>
-                        <input type="text" class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                        <input type="text" id="clientCompany" class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
                         <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Email Address *</label>
-                        <input type="email" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                        <input type="email" id="clientEmail" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
                         <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-1">Contact Number *</label>
-                        <input type="tel" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
+                        <input type="tel" id="clientPhone" required class="w-full bg-transparent border-b border-gray-300 p-2 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors">
                     </div>
                 </div>
 
                 <!-- Project Details -->
                 <div>
                     <label class="block text-[10px] md:text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-2">Project Description *</label>
-                    <textarea rows="4" required placeholder="Describe your project, required dimensions, materials, and timeline..." class="w-full bg-transparent border border-gray-300 p-4 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors resize-none rounded-sm"></textarea>
+                    <textarea id="projectDesc" rows="4" required placeholder="Describe your project, required dimensions, materials, and timeline..." class="w-full bg-transparent border border-gray-300 p-4 text-sm text-gray-900 focus:outline-none focus:border-black transition-colors resize-none rounded-sm"></textarea>
                 </div>
                 
                 <!-- File Upload Area -->
@@ -156,7 +157,7 @@
                     </svg>
                     <label class="block text-gray-700 font-medium text-sm mb-1">Upload Architectural Drawings</label>
                     <p class="text-[10px] md:text-xs text-gray-500 font-light mb-4">Accepted files: PDF, DXF, DWG, PNG, JPG (Max 20MB)</p>
-                    <input type="file" multiple class="text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm mx-auto cursor-pointer">
+                    <input type="file" id="fileUpload" multiple class="text-gray-600 bg-transparent focus:outline-none text-[10px] md:text-sm mx-auto cursor-pointer">
                 </div>
                 
                 <!-- Submit Action -->
@@ -204,6 +205,48 @@
     <script>
         function toggleMobileMenu() { 
             document.getElementById('mobile-menu').classList.toggle('open'); 
+        }
+
+        function submitCustomOrder(event) {
+            // Prevent the form from trying to submit and reload the page
+            event.preventDefault();
+
+            // Gather inputs
+            const name = document.getElementById('clientName').value;
+            const company = document.getElementById('clientCompany').value || 'N/A';
+            const email = document.getElementById('clientEmail').value;
+            const phone = document.getElementById('clientPhone').value;
+            const description = document.getElementById('projectDesc').value;
+            const fileInput = document.getElementById('fileUpload');
+            
+            const hasFile = fileInput.files.length > 0;
+
+            const subject = `Custom Fabrication Request - ${name}`;
+            
+            // Build the email body
+            let body = `Hi Magle Signs Engineering Team,\n\nI am submitting a custom fabrication request. Please find my details below:\n\n`;
+            body += `--- CLIENT DETAILS ---\n`;
+            body += `Name: ${name}\n`;
+            body += `Company: ${company}\n`;
+            body += `Email: ${email}\n`;
+            body += `Contact Number: ${phone}\n\n`;
+            body += `--- PROJECT DESCRIPTION ---\n`;
+            body += `${description}\n\n`;
+            
+            // Handle file attachment notification
+            if (hasFile) {
+                let fileNames = [];
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    fileNames.push(fileInput.files[i].name);
+                }
+                body += `[IMPORTANT: I have prepared files (${fileNames.join(', ')}). I will manually attach them to this email before sending.]\n\n`;
+            }
+
+            body += `Thank you,\n${name}`;
+
+            // Trigger the mail client
+            const mailtoLink = `mailto:info@magle.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
         }
     </script>
 </body>
